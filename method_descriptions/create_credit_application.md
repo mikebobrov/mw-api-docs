@@ -58,14 +58,7 @@ title: Создание кредитной заявки
    ]
  },
  // опционально - паспорт заемщика
- "national_passport": {
- 	"address": {
- 		"appartment": "616",
- 		"city": "Москва",
- 		"house": "3",
- 		"index": "111123",
- 		"street": "ул. Китобойцев"
- 	},
+ "national_passport": { 	
  	"country": "RU",
  	"date_of_birth": "1987-07-18",
  	"document_expiration_date": "2027-01-01",
@@ -76,6 +69,14 @@ title: Создание кредитной заявки
  	"middle_name": "Александрович",
  	"sex": "male" // female
  },
+ // адрес прописки
+ "address": {
+    "appartment": "616",
+    "city": "Москва",
+    "house": "3",
+    "index": "111123",
+    "street": "ул. Китобойцев"
+  },
  // опционально - загранпаспорт заемщика
  "foreign_passport": {
  	"country": "RU",
