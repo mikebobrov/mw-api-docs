@@ -13,6 +13,6 @@ Moneywall Partner API предназначен для партнеров для 
 | **production** | `https://moneywall.io/api`     | _Рабочее окружение_ |
 
 ### Список методов
-* [Создание кредитной заявки](method_descriptions/create_credit_application)
-* [Предварительная проверка кредитной заявки](method_desciprtions/validate)
-* [Возврат](method_descriptions/refund)
+* [Начало платежной сессии](method_descriptions/payments/init)
+* [Предварительная проверка кредитной заявки](method_desciprtions/credit_applications/validate)
+* [Возврат](method_descriptions/payments/refund)

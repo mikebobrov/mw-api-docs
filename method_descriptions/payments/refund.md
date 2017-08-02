@@ -3,7 +3,7 @@ title: Возврат
 ---
 
 ## HTTP-Method: POST
-## PATH: /partners/credit_agreements/refund
+## PATH: /partners/payments/refund
 
 ### Пример запроса:
 

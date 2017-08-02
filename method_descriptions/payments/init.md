@@ -5,7 +5,7 @@ title: Создание кредитной заявки
 Метод предназначен для создания кредитной заявки (начало сессии выдачи кредита)
 
 ## HTTP-Method: POST
-## PATH: /partners/credit_applications
+## PATH: /partners/payments/init
 
 ### Пример запроса:
 
@@ -58,16 +58,16 @@ title: Создание кредитной заявки
    ]
  },
  // опционально - паспорт заемщика
- "national_passport": { 	
- 	"country": "RU",
- 	"date_of_birth": "1987-07-18",
- 	"document_expiration_date": "2027-01-01",
- 	"document_issue_date": "2001-01-01",
- 	"document_number": "4444333222",
+ "local_passport": { 	
+ 	"birth_date": "1987-07-18", 	
+ 	"issue_date": "2001-01-01",
+ 	"number": "4444333222",
  	"first_name": "Иван",
  	"last_name": "Иванов",
  	"middle_name": "Александрович",
- 	"sex": "male" // female
+ 	"sex": "male", // female
+  "issuing_authority": "ОВД Района Калитники",
+  "authority_code": "663402"  
  },
  // адрес прописки
  "address": {
@@ -78,14 +78,13 @@ title: Создание кредитной заявки
     "street": "ул. Китобойцев"
   },
  // опционально - загранпаспорт заемщика
- "foreign_passport": {
- 	"country": "RU",
- 	"date_of_birth": "1987-07-18",
- 	"document_expiration_date": "2020-01-01",
- 	"document_number": "723902034",
+ "international_passport": {
+ 	"country_code": "RU",
+ 	"birth_date": "1987-07-18",
+ 	"expiration_date": "2020-01-01",
+ 	"number": "723902034",
  	"first_name": "Ivanov",
- 	"last_name": "Ivan",
- 	"sex": "male" // female
+ 	"last_name": "Ivan"
  }
 }
 
