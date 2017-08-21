@@ -22,6 +22,7 @@ title: Создание кредитной заявки
  "order_id": "partner_order_id", // идентификатор сессии со стороны партнера (по нему можно будет получать статус)
  "web_mode": "standalone", // в каком режиме будет открыт диалог заполнения заявки moneywall (standalone / iframe)
  "original_provider_order_id": "original_provider_order_id", // идентификатор заказа в системе партнера 
+ "expires_at": "2017-07-01T00:00:00", // таймлити для заказа (опциональный параметр)
  // опционально - детали продукта, под который выдается кредит
  "product_type": "airline_tickets",
  "product": {   
