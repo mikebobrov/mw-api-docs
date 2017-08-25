@@ -17,4 +17,4 @@ Moneywall Partner API предназначен для партнеров для 
 * [Предварительная проверка кредитной заявки](method_desciprtions/credit_applications/validate)
 * [Возврат](method_descriptions/payments/refund)
 * [Получение статуса платежной сессии](method_descriptions/payments/state)
-* [Получение статуса платежных сессий за период](method_desciprtions/payments/states)
+* [Получение статуса платежных сессий за период](method_descriptions/payments/states)
