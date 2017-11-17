@@ -7,11 +7,10 @@ title: Возврат
 
 ### Пример запроса:
 
-```
-
+```javascript
 {
-	"amount": 10000,
-	"order_id": "partner_order_id"
+    "amount": 10000,
+    "order_id": "partner_order_id"
 }
 
 ```

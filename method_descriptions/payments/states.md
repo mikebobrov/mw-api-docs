@@ -21,16 +21,16 @@ https://moneywall.io/api/partners/payments/states?from=2017-03-01T00:00:00&till=
 
 ### Ответ
 
-```
+```javascript
 [
-{
-  "order_id": "partner_order_id",
-  "state": "processing"
-},
-{
-  "order_id": "another_partner_order_id",
-  "state": "authorized"
-}
+  {
+    "order_id": "partner_order_id",
+    "state": "processing"
+  },
+  {
+    "order_id": "another_partner_order_id",
+    "state": "authorized"
+  }
 ]
 
 ```

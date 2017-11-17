@@ -30,7 +30,7 @@ https://moneywall.io/api/partners/payments/state?order_id=partner_order_id
 
 ### Ответ
 
-```
+```javascript
 {
   "order_id": "partner_order_id",
   "state": "processing"
