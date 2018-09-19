@@ -228,13 +228,13 @@
             <a href="#6a585d7863" class="toc-h1 toc-link" data-title="Платежные сессии">Платежные сессии</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#b55be8516e" class="toc-h2 toc-link" data-title=""></a>
+                    <a href="#7b615d264f" class="toc-h2 toc-link" data-title="Начало платежной сессии ">Начало платежной сессии </a>
                   </li>
                   <li>
-                    <a href="#217546a86e" class="toc-h2 toc-link" data-title=" Статус платёжной сессии"><a name="payment-state"></a> Статус платёжной сессии</a>
+                    <a href="#a92e81fb7c" class="toc-h2 toc-link" data-title="Статус платёжной сессии ">Статус платёжной сессии <a name="payment-state"></a></a>
                   </li>
                   <li>
-                    <a href="#8808a5c22e" class="toc-h2 toc-link" data-title=" Возврат"><a name="payment-refund"></a> Возврат</a>
+                    <a href="#d8541cacea" class="toc-h2 toc-link" data-title="Возврат ">Возврат <a name="payment-refund"></a></a>
                   </li>
               </ul>
           </li>
@@ -246,8 +246,9 @@
         <h1 id='c850ebec42'>Общая информация</h1>
 <p>Moneywall – сервис онлайн-кредитования, который встраивается на страницы оплаты партнеров и позволяет покупателям приобретать товары в кредит.</p>
 
-<p>API работает по протоколу HTTPS, все данные представлены в формате JSON.
-Базовый URL – https://moneywall.io/api/partners</p>
+<p>API работает по протоколу HTTPS, все данные представлены в формате JSON.</p>
+
+<p>Базовый URL – <code>https://dev.moneywall.io/api/partners</code></p>
 
 <p>Простой сценарий подачи и прохождения кредитной заявки:</p>
 
@@ -263,13 +264,13 @@
 <p>Аутентификация производится через токен партнера, передаваемый в заголовке Authorization при каждом запросе:</p>
 
 <p><code>Authorization: SuperSecretTokenValue</code></p>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://moneywall.com/api/partners/payments/init"</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.com/api/partners/payments/init"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
 </code></pre>
 <aside class="notice">
 Пожалуйста, замените <code>SuperSecretTokenValue</code> на предоставленный вам токен
 </aside>
-<h1 id='6a585d7863'>Платежные сессии</h1><h2 id='b55be8516e'><p id="payment-init"></p> Начало платежной сессии</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://moneywall.com/api/partners/payments/init"</span>
+<h1 id='6a585d7863'>Платежные сессии</h1><h2 id='7b615d264f'>Начало платежной сессии <p id="payment-init"></p></h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.com/api/partners/payments/init"</span>
   -X POST
   -H <span class="s2">"Content-Type: application/json"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
@@ -282,12 +283,12 @@
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
   </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">10000</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"frame_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://moneywall.io/frame/credit_applications/10/payment_graph"</span><span class="w">
+  </span><span class="s2">"frame_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://dev.moneywall.io/frame/credit_applications/10/payment_graph"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Метод предназначен для начала сессии выдачи кредита</p>
 <h3 id='http'>HTTP Запрос</h3>
-<p><code>POST https://moneywall.io/api/partners/payments/init</code></p>
+<p><code>POST https://dev.moneywall.io/api/partners/payments/init</code></p>
 <h3 id='afc543e7e2'>Схема запроса</h3>
 <table><thead>
 <tr>
@@ -584,7 +585,7 @@
 <td>Да</td>
 </tr>
 </tbody></table>
-<h2 id='217546a86e'><a name="payment-state"></a> Статус платёжной сессии</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://moneywall.io/api/partners/payments/state?order_id=partner_order_id"</span>
+<h2 id='a92e81fb7c'>Статус платёжной сессии <a name="payment-state"></a></h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.io/api/partners/payments/state?order_id=partner_order_id"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
 </code></pre>
 <blockquote>
@@ -650,7 +651,7 @@
 <td>Денежные средства за первоначальный платеж списаны, возврат по договору возможен только через досрочное погашение и закрытие договора</td>
 </tr>
 </tbody></table>
-<h2 id='8808a5c22e'><a name="payment-refund"></a> Возврат</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://moneywall.com/api/partners/payments/refund"</span>
+<h2 id='d8541cacea'>Возврат <a name="payment-refund"></a></h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.com/api/partners/payments/refund"</span>
   -X POST
   -H <span class="s2">"Content-Type: application/json"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
