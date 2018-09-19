@@ -228,13 +228,13 @@
             <a href="#6a585d7863" class="toc-h1 toc-link" data-title="Платежные сессии">Платежные сессии</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#79454b29e6" class="toc-h2 toc-link" data-title="Начало платежной сессии">Начало платежной сессии</a>
+                    <a href="#b55be8516e" class="toc-h2 toc-link" data-title=""></a>
                   </li>
                   <li>
-                    <a href="#f803c11981" class="toc-h2 toc-link" data-title="Статус платёжной сессии">Статус платёжной сессии</a>
+                    <a href="#217546a86e" class="toc-h2 toc-link" data-title=" Статус платёжной сессии"><a name="payment-state"></a> Статус платёжной сессии</a>
                   </li>
                   <li>
-                    <a href="#5283e33473" class="toc-h2 toc-link" data-title="Возврат">Возврат</a>
+                    <a href="#8808a5c22e" class="toc-h2 toc-link" data-title=" Возврат"><a name="payment-refund"></a> Возврат</a>
                   </li>
               </ul>
           </li>
@@ -249,16 +249,16 @@
 <p>API работает по протоколу HTTPS, все данные представлены в формате JSON.
 Базовый URL – https://moneywall.io/api/partners</p>
 
-<p>Простой сценарий подачи и прохождения кредитной заявки:
-1. Вызов метода <a href="method_descriptions/payments/init">Начала платежной сессии</a>
-2. Вывод фрейма по ссылке, полученной из результата запроса
-3. Ввод пользователем информации
-4. Перенаправление пользователя на адресу из <code>redirect_url</code>
-5. Ожидание решения по заявке
-6. Вызов <code>success_callback_url</code> или <code>failure_callback_url</code> при одобрении или отклонении заявки соответственно</p>
+<p>Простой сценарий подачи и прохождения кредитной заявки:</p>
 
-<p>Возможно прохождение шага предварительной проверки данных до инициации процесса подачи заявки:
-0. Вызов метода <a href="method_descriptions/credit_applications/validate">Предварительная проверка кредитной заявки</a></p>
+<ol>
+<li>Вызов метода <a href="#payment-init">Начала платежной сессии</a></li>
+<li>Вывод фрейма по ссылке, полученной из результата запроса</li>
+<li>Ввод пользователем информации</li>
+<li>Перенаправление пользователя на адресу из <code>redirect_url</code></li>
+<li>Ожидание решения по заявке</li>
+<li>Вызов <code>success_callback_url</code> или <code>failure_callback_url</code> при одобрении или отклонении заявки соответственно</li>
+</ol>
 <h1 id='a1ce3c1a83'>Аутентификация</h1>
 <p>Аутентификация производится через токен партнера, передаваемый в заголовке Authorization при каждом запросе:</p>
 
@@ -269,7 +269,7 @@
 <aside class="notice">
 Пожалуйста, замените <code>SuperSecretTokenValue</code> на предоставленный вам токен
 </aside>
-<h1 id='6a585d7863'>Платежные сессии</h1><h2 id='79454b29e6'>Начало платежной сессии</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://moneywall.com/api/partners/payments/init"</span>
+<h1 id='6a585d7863'>Платежные сессии</h1><h2 id='b55be8516e'><p id="payment-init"></p> Начало платежной сессии</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://moneywall.com/api/partners/payments/init"</span>
   -X POST
   -H <span class="s2">"Content-Type: application/json"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
@@ -344,7 +344,7 @@
 <td>order_id</td>
 <td>String</td>
 <td>&quot;vpih-234lgh&quot;</td>
-<td>Идентификатор сессии со стороны партнера (по нему можно будет получать статус)</td>
+<td>Идентификатор сессии со стороны партнера (по нему можно будет <a href="#payment-state">получать статус</a>)</td>
 <td>Да</td>
 </tr>
 <tr>
@@ -584,7 +584,7 @@
 <td>Да</td>
 </tr>
 </tbody></table>
-<h2 id='f803c11981'>Статус платёжной сессии</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://moneywall.io/api/partners/payments/state?order_id=partner_order_id"</span>
+<h2 id='217546a86e'><a name="payment-state"></a> Статус платёжной сессии</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://moneywall.io/api/partners/payments/state?order_id=partner_order_id"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
 </code></pre>
 <blockquote>
@@ -650,7 +650,7 @@
 <td>Денежные средства за первоначальный платеж списаны, возврат по договору возможен только через досрочное погашение и закрытие договора</td>
 </tr>
 </tbody></table>
-<h2 id='5283e33473'>Возврат</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://moneywall.com/api/partners/payments/refund"</span>
+<h2 id='8808a5c22e'><a name="payment-refund"></a> Возврат</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://moneywall.com/api/partners/payments/refund"</span>
   -X POST
   -H <span class="s2">"Content-Type: application/json"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
@@ -679,7 +679,7 @@
 <td>order_id</td>
 <td>String</td>
 <td>&quot;vpih-234lgh&quot;</td>
-<td>Идентификатор платежной сессии, переданный в метод начала платежной сессии</td>
+<td>Идентификатор платежной сессии, переданный в метод <a href="payment-init">начала платежной сессии</a></td>
 <td>Да</td>
 </tr>
 <tr>
