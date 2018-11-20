@@ -85,12 +85,41 @@ web_mode | String: "standalone", "iframe" | "standalone" | Режим, в кот
 original_provider_order_id | String | "AB123-45" | Идентификатор заказа в системе партнера | Нет
 expires_at | DateTime | "2017-07-01T15:00:00+03:00" | Таймлимит для заказа | Нет
 product_type | String | "airline_tickets" | Тип товара, под который выдается кредит| Нет
-product | Object | { "cabin_type": "economy", "airline_code": "SU" } | Детали товара, под который выдается кредит | Да, если передан тип товара
-local_passport | Object | См. схему объекта local_passport | Общегражданский паспорт клиента | Нет
-address | Object | См. схему объекта address | Адрес регистрации клиента | Нет
-international_passport | Object | См. схему объекта international_passport | Загранпаспорт клиента | Нет
+product | Object | См. [схему объекта product](#product-schema)| Детали товара, под который выдается кредит | Да, если передан тип товара
+local_passport | Object | См. [схему объекта local_passport](#local-passport-schema) | Общегражданский паспорт клиента | Нет
+address | Object | См. [схему объекта address](#address-schema) | Адрес регистрации клиента | Нет
+international_passport | Object | См. [схему объекта international_passport](#international-passport-schema) | Загранпаспорт клиента | Нет
 
-### Схема объекта общегражданского паспорта <code>local_passport</code>
+### Схема объекта <code>product</code> при <code>product_type == 'airline_tickets'</code> <p id="product-schema"></p>
+
+Параметр | Тип | Пример | Описание | Обязательно
+--------- | --------- | --------- | --------- | ---------
+cabin_type          | String | "economy" ("business", "premium") | Класс обслуживания | Да
+validating_airline  | String | "SU" | Валидирующая авиакомпания | Да
+segments            | Array | См. [схему объекта segment](#segment-schema) | Сегменты | Да
+
+### Схема объекта <code>segment</code> <p id="segment-schema"></p>
+
+Параметр | Тип | Пример | Описание | Обязательно
+--------- | --------- | --------- | --------- | ---------
+flights   | Array | См. [схему объекта flight](#flight-schema) | Перелеты | Да
+
+### Схема объекта <code>flight</code>  <p id="flight-schema"></p>
+
+Параметр | Тип | Пример | Описание | Обязательно
+--------- | --------- | --------- | --------- | ---------
+aircraft      | String | "737" | Модель самолета | Да
+departure_dt  | Datetime | "2016-12-10T08:00:00" | Время вылета  | Да
+arrival_dt    | Datetime | "2018-12-10T10:00:00" | Время прилета | Да
+book_code     | String | "Y" | Код бронирования | Да
+orig          | String | "SVO" | Аэропорт вылета | Да
+dest          | String | "VIE" | Аэропорт прилета | Да
+flight_number | String | "606" | Номер рейса | Да
+marketing_ac  | String | "SU" | Маркетинговый перевозчик | Да
+operating_ac  | String | "SU" | Оперирующий перевозчик | Да
+
+
+### Схема объекта общегражданского паспорта <code>local_passport</code> <p id="local-passport-schema"></p>
 
 Параметр | Тип | Пример | Описание | Обязательно
 --------- | --------- | --------- | --------- | ---------
@@ -104,7 +133,7 @@ sex | String: "female", "male" | "female" | Пол по паспорту | Да
 issuing_authority | String | "ОВД Района Калитники" | Кем выдан | Да
 authority_code | String | "663402" | Код подразделения | Да
 
-### Схема объекта адреса <code>address</code>
+### Схема объекта адреса <code>address</code> <p id="address-schema"></p>
 
 Параметр | Тип | Пример | Описание | Обязательно
 --------- | --------- | --------- | --------- | ---------
@@ -116,7 +145,7 @@ apartment | String | "616" | Квартира | Нет
 postcode | String | "111123" | Почтовый индекс | Да
 
 
-### Схема объекта загранпаспорта <code>international_passport</code>
+### Схема объекта загранпаспорта <code>international_passport</code> <p id="international-passport-schema"></p>
 
 Параметр | Тип | Пример | Описание | Обязательно
 --------- | --------- | --------- | --------- | ---------
