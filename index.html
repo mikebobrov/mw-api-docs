@@ -379,33 +379,157 @@
 <tr>
 <td>product</td>
 <td>Object</td>
-<td>{ &quot;cabin_type&quot;: &quot;economy&quot;, &quot;airline_code&quot;: &quot;SU&quot; }</td>
+<td>См. <a href="#product-schema">схему объекта product</a></td>
 <td>Детали товара, под который выдается кредит</td>
 <td>Да, если передан тип товара</td>
 </tr>
 <tr>
 <td>local_passport</td>
 <td>Object</td>
-<td>См. схему объекта local_passport</td>
+<td>См. <a href="#local-passport-schema">схему объекта local_passport</a></td>
 <td>Общегражданский паспорт клиента</td>
 <td>Нет</td>
 </tr>
 <tr>
 <td>address</td>
 <td>Object</td>
-<td>См. схему объекта address</td>
+<td>См. <a href="#address-schema">схему объекта address</a></td>
 <td>Адрес регистрации клиента</td>
 <td>Нет</td>
 </tr>
 <tr>
 <td>international_passport</td>
 <td>Object</td>
-<td>См. схему объекта international_passport</td>
+<td>См. <a href="#international-passport-schema">схему объекта international_passport</a></td>
 <td>Загранпаспорт клиента</td>
 <td>Нет</td>
 </tr>
 </tbody></table>
-<h3 id='local_passport'>Схема объекта общегражданского паспорта <code>local_passport</code></h3>
+<h3 id='product-product_type-39-airline_tickets-39'>Схема объекта <code>product</code> при <code>product_type == &#39;airline_tickets&#39;</code> <p id="product-schema"></p></h3>
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>cabin_type</td>
+<td>String</td>
+<td>&quot;economy&quot; (&quot;business&quot;, &quot;premium&quot;)</td>
+<td>Класс обслуживания</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>validating_airline</td>
+<td>String</td>
+<td>&quot;SU&quot;</td>
+<td>Валидирующая авиакомпания</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>segments</td>
+<td>Array</td>
+<td>См. <a href="#segment-schema">схему объекта segment</a></td>
+<td>Сегменты</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+<h3 id='segment'>Схема объекта <code>segment</code> <p id="segment-schema"></p></h3>
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>flights</td>
+<td>Array</td>
+<td>См. <a href="#flight-schema">схему объекта flight</a></td>
+<td>Перелеты</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+<h3 id='flight'>Схема объекта <code>flight</code>  <p id="flight-schema"></p></h3>
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>aircraft</td>
+<td>String</td>
+<td>&quot;737&quot;</td>
+<td>Модель самолета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>departure_dt</td>
+<td>Datetime</td>
+<td>&quot;2016-12-10T08:00:00&quot;</td>
+<td>Время вылета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>arrival_dt</td>
+<td>Datetime</td>
+<td>&quot;2018-12-10T10:00:00&quot;</td>
+<td>Время прилета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>book_code</td>
+<td>String</td>
+<td>&quot;Y&quot;</td>
+<td>Код бронирования</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>orig</td>
+<td>String</td>
+<td>&quot;SVO&quot;</td>
+<td>Аэропорт вылета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>dest</td>
+<td>String</td>
+<td>&quot;VIE&quot;</td>
+<td>Аэропорт прилета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>flight_number</td>
+<td>String</td>
+<td>&quot;606&quot;</td>
+<td>Номер рейса</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>marketing_ac</td>
+<td>String</td>
+<td>&quot;SU&quot;</td>
+<td>Маркетинговый перевозчик</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>operating_ac</td>
+<td>String</td>
+<td>&quot;SU&quot;</td>
+<td>Оперирующий перевозчик</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+<h3 id='local_passport'>Схема объекта общегражданского паспорта <code>local_passport</code> <p id="local-passport-schema"></p></h3>
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -479,7 +603,7 @@
 <td>Да</td>
 </tr>
 </tbody></table>
-<h3 id='address'>Схема объекта адреса <code>address</code></h3>
+<h3 id='address'>Схема объекта адреса <code>address</code> <p id="address-schema"></p></h3>
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -532,7 +656,7 @@
 <td>Да</td>
 </tr>
 </tbody></table>
-<h3 id='international_passport'>Схема объекта загранпаспорта <code>international_passport</code></h3>
+<h3 id='international_passport'>Схема объекта загранпаспорта <code>international_passport</code> <p id="international-passport-schema"></p></h3>
 <table><thead>
 <tr>
 <th>Параметр</th>
