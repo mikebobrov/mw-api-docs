@@ -219,22 +219,22 @@
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#c850ebec42" class="toc-h1 toc-link" data-title="Общая информация">Общая информация</a>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Общая информация">Общая информация</a>
           </li>
           <li>
-            <a href="#a1ce3c1a83" class="toc-h1 toc-link" data-title="Аутентификация">Аутентификация</a>
+            <a href="#auth" class="toc-h1 toc-link" data-title="Аутентификация">Аутентификация</a>
           </li>
           <li>
-            <a href="#6a585d7863" class="toc-h1 toc-link" data-title="Платежные сессии">Платежные сессии</a>
+            <a href="#payments" class="toc-h1 toc-link" data-title="Платежные сессии">Платежные сессии</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#7b615d264f" class="toc-h2 toc-link" data-title="Начало платежной сессии ">Начало платежной сессии </a>
+                    <a href="#payment-init" class="toc-h2 toc-link" data-title="Начало платежной сессии">Начало платежной сессии</a>
                   </li>
                   <li>
-                    <a href="#a92e81fb7c" class="toc-h2 toc-link" data-title="Статус платёжной сессии ">Статус платёжной сессии <a name="payment-state"></a></a>
+                    <a href="#payment-state" class="toc-h2 toc-link" data-title="Статус платёжной сессии">Статус платёжной сессии</a>
                   </li>
                   <li>
-                    <a href="#d8541cacea" class="toc-h2 toc-link" data-title="Возврат ">Возврат <a name="payment-refund"></a></a>
+                    <a href="#payment-refund" class="toc-h2 toc-link" data-title="Возврат">Возврат</a>
                   </li>
               </ul>
           </li>
@@ -243,7 +243,8 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='c850ebec42'>Общая информация</h1>
+        <h1 id='introduction'>Общая информация</h1>
+
 <p>Moneywall – сервис онлайн-кредитования, который встраивается на страницы оплаты партнеров и позволяет покупателям приобретать товары в кредит.</p>
 
 <p>API работает по протоколу HTTPS, все данные представлены в формате JSON.</p>
@@ -260,7 +261,9 @@
 <li>Ожидание решения по заявке</li>
 <li>Вызов <code>success_callback_url</code> или <code>failure_callback_url</code> при одобрении или отклонении заявки соответственно</li>
 </ol>
-<h1 id='a1ce3c1a83'>Аутентификация</h1>
+
+<h1 id='auth'>Аутентификация</h1>
+
 <p>Аутентификация производится через токен партнера, передаваемый в заголовке Authorization при каждом запросе:</p>
 
 <p><code>Authorization: SuperSecretTokenValue</code></p>
@@ -270,7 +273,11 @@
 <aside class="notice">
 Пожалуйста, замените <code>SuperSecretTokenValue</code> на предоставленный вам токен
 </aside>
-<h1 id='6a585d7863'>Платежные сессии</h1><h2 id='7b615d264f'>Начало платежной сессии <p id="payment-init"></p></h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.com/api/partners/payments/init"</span>
+
+<h1 id='payments'>Платежные сессии</h1>
+
+<h2 id='payment-init'>Начало платежной сессии</h2>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.com/api/partners/payments/init"</span>
   -X POST
   -H <span class="s2">"Content-Type: application/json"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
@@ -405,7 +412,9 @@
 <td>Нет</td>
 </tr>
 </tbody></table>
-<h3 id='product-product_type-39-airline_tickets-39'>Схема объекта <code>product</code> при <code>product_type == &#39;airline_tickets&#39;</code> <p id="product-schema"></p></h3>
+
+<h3 id='product-schema'>Схема объекта <code>product</code> при <code>product_type == 'airline_tickets'</code></h3>
+
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -437,7 +446,9 @@
 <td>Да</td>
 </tr>
 </tbody></table>
-<h3 id='segment'>Схема объекта <code>segment</code> <p id="segment-schema"></p></h3>
+
+<h3 id='segment-schema'>Схема объекта <code>segment</code></h3>
+
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -455,7 +466,9 @@
 <td>Да</td>
 </tr>
 </tbody></table>
-<h3 id='flight'>Схема объекта <code>flight</code>  <p id="flight-schema"></p></h3>
+
+<h3 id='flight-schema'>Схема объекта <code>flight</code></h3>
+
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -529,7 +542,9 @@
 <td>Да</td>
 </tr>
 </tbody></table>
-<h3 id='local_passport'>Схема объекта общегражданского паспорта <code>local_passport</code> <p id="local-passport-schema"></p></h3>
+
+<h3 id='local-passport-schema'>Схема объекта общегражданского паспорта <code>local_passport</code></h3>
+
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -603,7 +618,9 @@
 <td>Да</td>
 </tr>
 </tbody></table>
-<h3 id='address'>Схема объекта адреса <code>address</code> <p id="address-schema"></p></h3>
+
+<h3 id='address-schema'>Схема объекта адреса <code>address</code></h3>
+
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -656,7 +673,9 @@
 <td>Да</td>
 </tr>
 </tbody></table>
-<h3 id='international_passport'>Схема объекта загранпаспорта <code>international_passport</code> <p id="international-passport-schema"></p></h3>
+
+<h3 id='international-passport-schema'>Схема объекта загранпаспорта <code>international_passport</code></h3>
+
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -709,7 +728,9 @@
 <td>Да</td>
 </tr>
 </tbody></table>
-<h2 id='a92e81fb7c'>Статус платёжной сессии <a name="payment-state"></a></h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.io/api/partners/payments/state?order_id=partner_order_id"</span>
+
+<h2 id='payment-state'>Статус платёжной сессии</a></h2>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.io/api/partners/payments/state?order_id=partner_order_id"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
 </code></pre>
 <blockquote>
@@ -775,7 +796,9 @@
 <td>Денежные средства за первоначальный платеж списаны, возврат по договору возможен только через досрочное погашение и закрытие договора</td>
 </tr>
 </tbody></table>
-<h2 id='d8541cacea'>Возврат <a name="payment-refund"></a></h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.com/api/partners/payments/refund"</span>
+
+<h2 id='payment-refund'>Возврат</h2>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.com/api/partners/payments/refund"</span>
   -X POST
   -H <span class="s2">"Content-Type: application/json"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
