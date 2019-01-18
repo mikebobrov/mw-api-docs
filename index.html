@@ -427,6 +427,10 @@
 </tr>
 </tbody></table>
 
+<blockquote>
+<p>Пожалуйста, обратите внимание, что параметры с типом DateTime следует передавать в формате ISO8601 с часовым поясом. Рекомендуемый формат даты: <code>&quot;%Y-%m-%dT%H:%M:%S%:z&quot;</code></p>
+</blockquote>
+
 <h3 id='product-schema'>Схема объекта <code>product</code> при <code>product_type == 'airline_tickets'</code></h3>
 
 <table><thead>
@@ -457,6 +461,68 @@
 <td>Array</td>
 <td>См. <a href="#segment-schema">схему объекта segment</a></td>
 <td>Сегменты</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>passengers</td>
+<td>Array</td>
+<td>См. <a href="#passenger">схему объекта passenger</a></td>
+<td>Пассажиры</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h3 id='passenger-schema'>Схема объекта <code>passenger</code></h3>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first_name</td>
+<td>String</td>
+<td>&quot;Ivan&quot;</td>
+<td>Имя</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>middle_name</td>
+<td>String</td>
+<td>&quot;Aleksandrovich&quot;</td>
+<td>Отчество</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>String</td>
+<td>&quot;Ivanon&quot;</td>
+<td>Фамилия</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>document_type</td>
+<td>String</td>
+<td>&quot;international_passport&quot; (&quot;local_passport&quot;, &quot;birth_certificate&quot;)</td>
+<td>Тип документа</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>document_number</td>
+<td>String</td>
+<td>&quot;349287349&quot;</td>
+<td>Номер документа</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>birth_date</td>
+<td>String</td>
+<td>&quot;1987-07-18&quot;</td>
+<td>Дата рождения</td>
 <td>Да</td>
 </tr>
 </tbody></table>
@@ -501,15 +567,15 @@
 </tr>
 <tr>
 <td>departure_dt</td>
-<td>Datetime</td>
-<td>&quot;2016-12-10T08:00:00&quot;</td>
+<td>DateTime</td>
+<td>&quot;2016-12-10T08:00:00+03:00&quot;</td>
 <td>Время вылета</td>
 <td>Да</td>
 </tr>
 <tr>
 <td>arrival_dt</td>
-<td>Datetime</td>
-<td>&quot;2018-12-10T10:00:00&quot;</td>
+<td>DateTime</td>
+<td>&quot;2018-12-10T10:00:00+03:00&quot;</td>
 <td>Время прилета</td>
 <td>Да</td>
 </tr>
