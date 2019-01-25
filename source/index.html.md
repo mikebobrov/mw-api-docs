@@ -41,7 +41,7 @@ API работает по протоколу HTTPS, все данные пред
 `Authorization: SuperSecretTokenValue`
 
 ```shell
-curl "https://dev.moneywall.com/api/partners/payments/init"
+curl "https://dev.moneywall.io/api/partners/payments/init"
   -H "Authorization: SuperSecretTokenValue"
 ```
 
@@ -54,7 +54,7 @@ curl "https://dev.moneywall.com/api/partners/payments/init"
 <h2 id='payment-init'>Начало платежной сессии</h2>
 
 ```shell
-curl "https://dev.moneywall.com/api/partners/payments/init"
+curl "https://dev.moneywall.io/api/partners/payments/init"
   -X POST
   -H "Content-Type: application/json"
   -H "Authorization: SuperSecretTokenValue"
@@ -222,7 +222,7 @@ order_id | String | "vpih-234lgh" | Идентификатор платежно�
 <h2 id='payment-refund'>Возврат</h2>
 
 ```shell
-curl "https://dev.moneywall.com/api/partners/payments/refund"
+curl "https://dev.moneywall.io/api/partners/payments/refund"
   -X POST
   -H "Content-Type: application/json"
   -H "Authorization: SuperSecretTokenValue"
