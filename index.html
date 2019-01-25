@@ -281,7 +281,7 @@
 <p>Аутентификация производится через токен партнера, передаваемый в заголовке Authorization при каждом запросе:</p>
 
 <p><code>Authorization: SuperSecretTokenValue</code></p>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.com/api/partners/payments/init"</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.io/api/partners/payments/init"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
 </code></pre>
 <aside class="notice">
@@ -291,7 +291,7 @@
 <h1 id='payments'>Платежные сессии</h1>
 
 <h2 id='payment-init'>Начало платежной сессии</h2>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.com/api/partners/payments/init"</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.io/api/partners/payments/init"</span>
   -X POST
   -H <span class="s2">"Content-Type: application/json"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
@@ -878,7 +878,7 @@
 </tbody></table>
 
 <h2 id='payment-refund'>Возврат</h2>
-<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.com/api/partners/payments/refund"</span>
+<pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dev.moneywall.io/api/partners/payments/refund"</span>
   -X POST
   -H <span class="s2">"Content-Type: application/json"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
