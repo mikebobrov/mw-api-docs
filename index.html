@@ -236,6 +236,9 @@
                     <a href="#payment-init" class="toc-h2 toc-link" data-title="Начало платежной сессии">Начало платежной сессии</a>
                   </li>
                   <li>
+                    <a href="#product" class="toc-h2 toc-link" data-title="Добавление выписанных билетов к заказу">Добавление выписанных билетов к заказу</a>
+                  </li>
+                  <li>
                     <a href="#payment-state" class="toc-h2 toc-link" data-title="Статус платёжной сессии">Статус платёжной сессии</a>
                   </li>
                   <li>
@@ -834,6 +837,133 @@
 <td>Количество успешных заказов клиента</td>
 <td>Нет</td>
 </tr>
+<tr>
+<td>client_login</td>
+<td>Boolean</td>
+<td>true/false</td>
+<td>Статус клиента (залогинен или нет)</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>orders_count</td>
+<td>Integer</td>
+<td>3</td>
+<td>Сумма заказов клиента у партнера</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>book_code</td>
+<td>String</td>
+<td>&quot;Y&quot;</td>
+<td>Код бронирования</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>original_provider_order_id</td>
+<td>String</td>
+<td>&quot;AB123-45&quot;</td>
+<td>Идентификатор заказа в системе партнера</td>
+<td>Нет</td>
+</tr>
+</tbody></table>
+
+<h2 id='product'>Добавление выписанных билетов к заказу</a></h2>
+<pre class="highlight shell tab-shell"><code>curl -X POST   <span class="se">\</span>
+ -H <span class="s1">'Authorization: SuperSecretTokenValue'</span> <span class="se">\</span>
+ -F <span class="s1">'order_id=partner_order_id'</span> <span class="se">\</span>
+ -F <span class="s1">'product[product_type]=airline_tickets'</span> <span class="se">\</span>
+ -F <span class="s1">'product[product_items][][ticket_number]=123'</span> <span class="se">\</span>
+ -F <span class="s1">'product[product_items][][ticket_receipt]=@path/to/file/test_pdf.pdf'</span> <span class="se">\</span>
+https://dev.moneywall.io/api/partners/payments/product
+</code></pre>
+<p>Метод предназначен для сохранения номеров билетов и файлов маршрутных квитанций в кредитной заявке</p>
+<h3 id='http-2'>HTTP Запрос</h3>
+<p><code>POST https://dev.moneywall.io/api/partners/payments/product</code></p>
+<h3 id='url'>URL параметры</h3>
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>order_id</td>
+<td>String</td>
+<td>&quot;vpih-234lgh&quot;</td>
+<td>Идентификатор платежной сессии, переданный в метод начала платежной сессии</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>transaction_letter</td>
+<td>File</td>
+<td>@path/to/file/test_pdf.pdf</td>
+<td>Транзакционное письмо</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>product</td>
+<td>Object</td>
+<td>См. <a href="#product">схему объекта product</a></td>
+<td>Фактически выписанные билеты</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h3 id='product'>Схема объекта <code>product</code></h3>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>product_type</td>
+<td>String</td>
+<td>&quot;airline-tickets&quot;</td>
+<td>Тип билетов</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>product_items</td>
+<td>Array</td>
+<td>См. <a href="#product-items">схему объекта product_items</a></td>
+<td>Список билетов и маршрутных квитанций</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h3 id='product-items'>Схема объекта <code>product_items</code></h3>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ticket_number</td>
+<td>String</td>
+<td>&quot;421-288879826&quot;</td>
+<td>Номер билета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>ticket_receipt</td>
+<td>File</td>
+<td>@path/to/file/test_pdf.pdf</td>
+<td>Файл маршрутной квитанции (pdf, doc, docx). Не больше 8MB</td>
+<td>Да</td>
+</tr>
 </tbody></table>
 
 <h2 id='payment-state'>Статус платёжной сессии</a></h2>
@@ -851,9 +981,9 @@
 <p>Метод предназначен для получения статуса платежной сессии</p>
 
 <aside class="notice">Метод возвращает статус кредитной заявки в системе Moneywall</aside>
-<h3 id='http-2'>HTTP Запрос</h3>
+<h3 id='http-3'>HTTP Запрос</h3>
 <p><code>GET https://dev.moneywall.io/api/partners/payments/state</code></p>
-<h3 id='url'>URL параметры</h3>
+<h3 id='url-2'>URL параметры</h3>
 <table><thead>
 <tr>
 <th>Параметр</th>
@@ -933,9 +1063,9 @@
 <li>При полном возврате денежных средств по договору в течение 24 часов после открытия договора, происходит отмена договора и возврат денег на карту клиента путем войдирования платежной сессии;</li>
 <li>При полном возврате денежных средств по договору позднее 24 часов после открытия договора, оплата идет в счет погашения.</li>
 </ul>
-<h3 id='http-3'>HTTP Запрос</h3>
+<h3 id='http-4'>HTTP Запрос</h3>
 <p><code>POST https://dev.moneywall.io/api/partners/payments/refund</code></p>
-<h3 id='url-2'>URL параметры</h3>
+<h3 id='url-3'>URL параметры</h3>
 <table><thead>
 <tr>
 <th>Параметр</th>
