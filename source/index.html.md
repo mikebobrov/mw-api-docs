@@ -184,6 +184,48 @@ last_name | String | "Ivan" | Фамилия | Да
 Параметр | Тип | Пример | Описание | Обязательно
 --------- | --------- | --------- | --------- | ---------
 client_orders_count | Integer | 14 | Количество успешных заказов клиента | Нет
+client_login | Boolean | true/false | Статус клиента (залогинен или нет) | Нет
+orders_count | Integer | 3 | Сумма заказов клиента у партнера | Нет
+book_code     | String | "Y" | Код бронирования | Нет
+original_provider_order_id | String | "AB123-45" | Идентификатор заказа в системе партнера | Нет
+<h2 id='product'>Добавление выписанных билетов к заказу</a></h2>
+
+```shell
+curl -X POST   \
+ -H 'Authorization: SuperSecretTokenValue' \
+ -F 'order_id=partner_order_id' \
+ -F 'product[product_type]=airline_tickets' \
+ -F 'product[product_items][][ticket_number]=123' \
+ -F 'product[product_items][][ticket_receipt]=@path/to/file/test_pdf.pdf' \
+https://dev.moneywall.io/api/partners/payments/product
+```
+
+Метод предназначен для сохранения номеров билетов и файлов маршрутных квитанций в кредитной заявке
+### HTTP Запрос
+
+`POST https://dev.moneywall.io/api/partners/payments/product`
+
+### URL параметры
+
+Параметр | Тип | Пример | Описание | Обязательно
+--------- | --------- | --------- | --------- | ---------
+order_id | String | "vpih-234lgh" | Идентификатор платежной сессии, переданный в метод начала платежной сессии | Да
+transaction_letter | File | @path/to/file/test_pdf.pdf | Транзакционное письмо | Нет
+product | Object | См. [схему объекта product](#product) | Фактически выписанные билеты | Да
+
+<h3 id='product'>Схема объекта <code>product</code></h3>
+
+Параметр | Тип | Пример | Описание | Обязательно
+--------- | --------- | --------- | --------- | ---------
+product_type | String | "airline-tickets" | Тип билетов | Да
+product_items | Array | См. [схему объекта product_items](#product-items) | Список билетов и маршрутных квитанций | Да
+
+<h3 id='product-items'>Схема объекта <code>product_items</code></h3>
+
+Параметр | Тип | Пример | Описание | Обязательно
+--------- | --------- | --------- | --------- | ---------
+ticket_number | String | "421-288879826" | Номер билета | Да
+ticket_receipt | File | @path/to/file/test_pdf.pdf | Файл маршрутной квитанции (pdf, doc, docx). Не больше 8MB | Да
 
 <h2 id='payment-state'>Статус платёжной сессии</a></h2>
 
