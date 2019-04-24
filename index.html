@@ -1198,63 +1198,114 @@ https://dev.moneywall.io/api/partners/payments/product
 
 <p>Ниже представлен проект документации по новой версии API</p>
 
+<p>Базовый URL: <code>https://dev.moneywall.io/api/v2/</code></p>
+
 <h2 id='auth-v2'> Аутентификация </h2>
 
 <p><strong>TBD</strong></p>
 
 <h2 id='credit-application-v2'> Кредитная заявка </h2>
 
-<p><strong>Метод POST:</strong> Создание заявки
-  <strong>Метод: GET:</strong> Получение полной информации по заявке</p>
+<p><code>POST#credit_applications</code></p>
+
+<p>Создание заявки</p>
+
+<p><code>GET#credit_applications/:id</code></p>
+
+<p>Получение полной информации по заявке</p>
 
 <h3 id='credit-application-v2-signature'> Электронная подпись </h3>
 
-<p><strong>Метод POST:</strong> Получение кода подписи по заданному каналу</p>
+<p><code>POST#credit_applications/:id/verification_code</code></p>
+
+<p>Получение кода подписи по заданному каналу</p>
 <h4 id='8dcef6d02c'>Код подписи</h4>
-<p>Метод выполняется в контексте <a href="#credit-application-v2-signature">Электронной подписи</a>
-  <strong>Метод POST:</strong> Ввод полученного кода</p>
+<p>Метод выполняется в контексте <a href="#credit-application-v2-signature">Электронной подписи</a></p>
+
+<p><code>POST#credit_applications/:id/verification_code/sign</code></p>
+
+<p>Ввод полученного кода</p>
 <h3 id='9b19ad0c85'>Документы</h3>
-<p><strong>Метод POST:</strong> передача данных документов с типом</p>
+<p><code>POST#credit_applications/:id/document</code></p>
+
+<p>Передача данных документов с типом</p>
 <h3 id='2b8df6d4ef'>Фотографии документов</h3>
-<p><strong>Метод POST:</strong> передача фото документов</p>
+<p><code>POST#credit_applications/:id/document_photo</code></p>
+
+<p>Передача фото документов</p>
 <h3 id='5e513ad59a'>Соцсети</h3>
-<p><strong>Метод POST:</strong> ???????</p>
+<p><code>POST#credit_applications/:id/social_profile</code></p>
+
+<p>???????</p>
 <h3 id='348a6d9ca8'>Первоначальный платеж</h3>
-<p><strong>Метод POST:</strong> попытка списания платежа с переданной карты</p>
+<p><code>POST#credit_applications/:id/initial_payment</code></p>
+
+<p>Попытка списания платежа с переданной карты</p>
 <h3 id='d0a65eea32'>Банковская карта</h3>
-<p><strong>Метод POST:</strong> создание банковской карты (у нас привязывается к клиенту)</p>
+<p><code>POST#credit_applications/:id/credit_payment</code></p>
+
+<p>Создание банковской карты</p>
 <h3 id='b13291dd35'>Решение по заявке</h3>
-<p><strong>Метод GET:</strong> получение решения по заявке</p>
+<p><code>GET#credit_applications/:id/decision</code></p>
+
+<p>Получение решения по заявке</p>
 <h3 id='28191fe3ec'>Степень заполненности заявки</h3>
-<p><strong>Метод GET:</strong> получить список недостающих данные</p>
+<p><code>GET#credit_applications/:id/verify</code></p>
+
+<p>Получение списка недостающих данных</p>
 
 <h2 id='credit-agreement-v2'> Договор </h2>
 
-<p><strong>Метод GET:</strong> получение договора со всеми вложенными сущностями</p>
+<p><code>GET#credit_agreements/:id</code></p>
+
+<p>Получение договора со всеми вложенными сущностями</p>
 <h3 id='7df0bc4c57'>График платежей</h3>
-<p><strong>Метод GET:</strong> получение актуального списка платежей</p>
+<p><code>GET#credit_agreements/:id/payment_schedule</code></p>
+
+<p>Получение актуального списка платежей</p>
 <h3 id='d44e3a7b8a'>Очередной платеж</h3>
-<p><strong>Метод GET:</strong> информация о платеже
-  <strong>Метод POST:</strong> попытка оплаты платежа</p>
+<p><code>GET#credit_agreements/:id/credit_payments/:id</code></p>
+
+<p>Информация о платеже</p>
+
+<p><code>POST#credit_agreements/:id/credit_payments/:id/charge</code></p>
+
+<p>Попытка оплаты платежа</p>
 <h3 id='573deecfc8'>Попытка списания</h3>
-<p><strong>Метод POST:</strong> попытка списания платежа
-            (id, сумма, мета)</p>
+<p><code>POST#credit_agreements/:id/payments/pay</code></p>
+
+<p>Попытка списания платежа (id, сумма, мета)</p>
 <h3 id='cecde846db'>Состоявшийся платеж</h3>
-<p><strong>Метод POST:</strong> уведомление об успешно списанном платеже с информацией
+<p><code>POST#credit_agreements/:id/payments/paid</code></p>
+
+<p>Уведомление об успешно списанном платеже с информацией
             (тип платежа, id, сумма, мета)</p>
 <h3 id='74a7af0529'>Возвраты</h3>
-<p><strong>Метод POST:</strong> запрос на проведение возврата
-  <strong>Метод GET:</strong> получение списка возвратов</p>
+<p><code>POST#credit_agreements/:id/refund</code></p>
+
+<p>Запрос на проведение возврата</p>
+
+<p><code>GET#credit_agreements/:id/refunds</code></p>
+
+<p>Получение списка возвратов</p>
 <h4 id='5283e33473'>Возврат</h4>
-<p><strong>Метод GET:</strong> получение статуса возврата</p>
+<p><code>GET#credit_agreements/:id/refunds/:id</code></p>
+
+<p>Получение статуса возврата</p>
 <h3 id='d0a65eea32-2'>Банковская карта</h3>
-<p><strong>Метод POST:</strong> создание банковской карты (у нас привязывается к клиенту)</p>
+<p><code>POST#credit_agreements/:id/credit_card</code></p>
+
+<p>Поздание банковской карты (у нас привязывается к клиенту)</p>
 <h3 id='d640e3383d'>Ввод договора в действие (?)</h3>
-<p><strong>Метод POST:</strong> передача данных о предоставленной услуге</p>
+<p><code>POST#credit_agreements/:id/service_provided</code></p>
+
+<p>Передача данных о предоставленной услуге</p>
 
 <h2 id='cash-flow-v2'> Движения Денежных Средств </h2>
 
-<p><strong>Метод GET:</strong> получение списка платежей и возвратов по фильтру</p>
+<p><code>GET#cash_flow</code></p>
+
+<p>Получение списка платежей и возвратов по фильтру</p>
 <h2 id='webhooks'>Webhooks</h2><h3 id='397cc59b74'>Принятие решения по заявке</h3><h3 id='aaef60cd3f'>Изменение графика платежей</h3>
       </div>
       <div class="dark-box">
