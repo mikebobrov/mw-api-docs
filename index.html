@@ -255,6 +255,62 @@
             <a href="#v2" class="toc-h1 toc-link" data-title=" API v2 "> API v2 </a>
               <ul class="toc-list-h2">
                   <li>
+                    <a href="#entities-v2" class="toc-h2 toc-link" data-title="Системные сущности">Системные сущности</a>
+                        <ul class="toc-list-h3">
+                            <li>
+                              <a href="#credit-application-entity-v2" class="toc-h3 toc-link" data-title=" Кредитная заявка "> Кредитная заявка </a>
+                            </li>
+                            <li>
+                              <a href="#credit-agreement-entity-v2" class="toc-h3 toc-link" data-title=" Кредитный договор "> Кредитный договор </a>
+                            </li>
+                            <li>
+                              <a href="#credit-signature-entity-v2" class="toc-h3 toc-link" data-title=" Электронная подпись "> Электронная подпись </a>
+                            </li>
+                            <li>
+                              <a href="#local-passport-entity-v2" class="toc-h3 toc-link" data-title=" Общегражданский паспорт "> Общегражданский паспорт </a>
+                            </li>
+                            <li>
+                              <a href="#address-entity-v2" class="toc-h3 toc-link" data-title=" Адрес регистрации "> Адрес регистрации </a>
+                            </li>
+                            <li>
+                              <a href="#international-passport-entity-v2" class="toc-h3 toc-link" data-title=" Заграничный паспорт "> Заграничный паспорт </a>
+                            </li>
+                            <li>
+                              <a href="#document-photo-entity-v2" class="toc-h3 toc-link" data-title=" Фотография документа "> Фотография документа </a>
+                            </li>
+                            <li>
+                              <a href="#social-profile-entity-v2" class="toc-h3 toc-link" data-title=" Профиль социальной сети "> Профиль социальной сети </a>
+                            </li>
+                            <li>
+                              <a href="#initial-payment-entity-v2" class="toc-h3 toc-link" data-title=" Первоначальный платеж "> Первоначальный платеж </a>
+                            </li>
+                            <li>
+                              <a href="#credit-card-entity-v2" class="toc-h3 toc-link" data-title=" Банковская карта "> Банковская карта </a>
+                            </li>
+                            <li>
+                              <a href="#decision-entity-v2" class="toc-h3 toc-link" data-title=" Решение по заявке "> Решение по заявке </a>
+                            </li>
+                            <li>
+                              <a href="#scheduled-payment-entity-v2" class="toc-h3 toc-link" data-title=" Очередной платеж "> Очередной платеж </a>
+                            </li>
+                            <li>
+                              <a href="#payment-attempt-entity-v2" class="toc-h3 toc-link" data-title=" Попытка списания "> Попытка списания </a>
+                            </li>
+                            <li>
+                              <a href="#charged-payment-entity-v2" class="toc-h3 toc-link" data-title=" Состоявшийся платеж "> Состоявшийся платеж </a>
+                            </li>
+                            <li>
+                              <a href="#refund-entity-v2" class="toc-h3 toc-link" data-title=" Возврат "> Возврат </a>
+                            </li>
+                            <li>
+                              <a href="#product-entity-v2" class="toc-h3 toc-link" data-title=" Товар "> Товар </a>
+                            </li>
+                            <li>
+                              <a href="#additional-entities-v2" class="toc-h3 toc-link" data-title="Дополнительные сущности">Дополнительные сущности</a>
+                            </li>
+                        </ul>
+                  </li>
+                  <li>
                     <a href="#auth-v2" class="toc-h2 toc-link" data-title=" Аутентификация "> Аутентификация </a>
                   </li>
                   <li>
@@ -1198,6 +1254,673 @@ https://dev.moneywall.io/api/partners/payments/product
 
 <p>Ниже представлен проект документации по новой версии API</p>
 
+<h2 id='entities-v2'>Системные сущности</h2>
+
+<ul>
+<li><p><a href="#credit-application-entity-v2">Кредитная Заявка</a></p></li>
+<li><p><a href="#credit-agreement-entity-v2">Кредитный Договор</a></p></li>
+<li><p><a href="#credit-signature-entity-v2">Электронная подпись</a></p></li>
+<li><p><a href="#document-photo-entity-v2">Фотография Документа</a></p></li>
+<li><p><a href="#social-profile-entity-v2">Профиль социальной сети</a></p></li>
+<li><p><a href="#initial-payment-entity-v2">Первоначальный платеж</a></p></li>
+<li><p><a href="#credit-card-entity-v2">Банковская карта</a></p></li>
+<li><p><a href="#decision-entity-v2">Решение по заявке</a></p></li>
+<li><p><a href="#credit-application-state-entity-v2">Текущий статус заявки</a></p></li>
+<li><p><a href="#payment-graph-entity-v2">График платежей</a></p></li>
+<li><p><a href="#scheduled-payment-entity-v2">Очередной платеж</a></p></li>
+<li><p><a href="#payment-attempt-entity-v2">Попытка списания</a></p></li>
+<li><p><a href="#charged-payment-entity-v2">Состоявшийся платеж</a></p></li>
+<li><p><a href="#refunds-entity-v2">Список возвратов</a></p></li>
+<li><p><a href="#refund-entity-v2">Возврат</a></p></li>
+<li><p><a href="#activation-entity-v2">Ввод договора в действие</a></p></li>
+<li><p><a href="#product-entity-v2">Товар</a></p></li>
+</ul>
+
+<h3 id='credit-application-entity-v2'> Кредитная заявка </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>phone</td>
+<td>String</td>
+<td>&quot;79588249424&quot;</td>
+<td>Номер телефона клиента</td>
+</tr>
+<tr>
+<td>email</td>
+<td>String</td>
+<td>&quot;user@gmail.com&quot;</td>
+<td>Адрес электронной почты клиента</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>Decimal</td>
+<td>10000</td>
+<td>Сумма заказа клиента на сайте партнера в рублях</td>
+</tr>
+<tr>
+<td>success_callback_url</td>
+<td>String</td>
+<td>&quot;http://yoursite.com/callbacks/success&quot;</td>
+<td>Адрес callback-страницы, вызываемой при одобрении заявки</td>
+</tr>
+<tr>
+<td>failure_callback_url</td>
+<td>String</td>
+<td>&quot;http://yoursite.com/callbacks/failure&quot;</td>
+<td>Адрес callback-страницы, вызываемой при отклонении заявки</td>
+</tr>
+<tr>
+<td>redirect_url</td>
+<td>String</td>
+<td>&quot;http://yoursite.com/order/AB123-45&quot;</td>
+<td>Адрес страницы заказа в системе партнера</td>
+</tr>
+<tr>
+<td>order_id</td>
+<td>String</td>
+<td>&quot;vpih-234lgh&quot;</td>
+<td>Идентификатор заказа со стороны партнера</td>
+</tr>
+<tr>
+<td>original_provider_order_id</td>
+<td>String</td>
+<td>&quot;AB123-45&quot;</td>
+<td>Идентификатор заказа в системе партнера</td>
+</tr>
+<tr>
+<td>expires_at</td>
+<td>DateTime</td>
+<td>&quot;2017-09-01T15:00:00+03:00&quot;</td>
+<td>Таймлимит для заказа</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>Object</td>
+<td>См. <a href="#meta-entity-v2">схему сущности meta</a></td>
+<td>Дополнительная информация</td>
+</tr>
+</tbody></table>
+
+<blockquote>
+<p>Пожалуйста, обратите внимание, что параметры с типом DateTime следует передавать в формате ISO8601 с часовым поясом. Рекомендуемый формат даты: <code>&quot;%Y-%m-%dT%H:%M:%S%:z&quot;</code></p>
+</blockquote>
+
+<h3 id='credit-agreement-entity-v2'> Кредитный договор </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID договора</td>
+</tr>
+<tr>
+<td>body_amount</td>
+<td>Decimal</td>
+<td>10000</td>
+<td>Сумма тела займа</td>
+</tr>
+<tr>
+<td>interest_amount</td>
+<td>Decimal</td>
+<td>2000</td>
+<td>Сумма процентов займа</td>
+</tr>
+<tr>
+<td>body_remainder_amount</td>
+<td>Decimal</td>
+<td>9000</td>
+<td>Текущая задолженность по телу</td>
+</tr>
+<tr>
+<td>interest_remainder_amount</td>
+<td>Decimal</td>
+<td>1000</td>
+<td>Текущая задолженность по процентам</td>
+</tr>
+<tr>
+<td>state</td>
+<td>String</td>
+<td>&#39;open&#39;</td>
+<td>Статус договора</td>
+</tr>
+<tr>
+<td>credit_application_id</td>
+<td>Integer</td>
+<td>ID кредитной заявки</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h3 id='credit-signature-entity-v2'> Электронная подпись </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID подписи</td>
+</tr>
+<tr>
+<td>code</td>
+<td>String</td>
+<td>&#39;0312&#39;</td>
+<td>Код</td>
+</tr>
+<tr>
+<td>active</td>
+<td>Boolean</td>
+<td>true</td>
+<td>Статус активности</td>
+</tr>
+<tr>
+<td>expires_at</td>
+<td>Datetime</td>
+<td>&quot;2019-07-01T13:00:00+03:00&quot;</td>
+<td>Срок активности</td>
+</tr>
+</tbody></table>
+
+<h3 id='local-passport-entity-v2'> Общегражданский паспорт </h3>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>birth_date</td>
+<td>Date</td>
+<td>&quot;1987-07-18&quot;</td>
+<td>Дата рождения</td>
+</tr>
+<tr>
+<td>issue_date</td>
+<td>Date</td>
+<td>&quot;2001-01-01&quot;</td>
+<td>Дата выдачи паспорта</td>
+</tr>
+<tr>
+<td>number</td>
+<td>String</td>
+<td>&quot;4444333222&quot;</td>
+<td>Серия и номер паспорта</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>String</td>
+<td>&quot;Иванов&quot;</td>
+<td>Фамилия</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>String</td>
+<td>&quot;Иван&quot;</td>
+<td>Имя</td>
+</tr>
+<tr>
+<td>middle_name</td>
+<td>String</td>
+<td>&quot;Александрович&quot;</td>
+<td>Отчество</td>
+</tr>
+<tr>
+<td>sex</td>
+<td>String: &quot;female&quot;, &quot;male&quot;</td>
+<td>&quot;female&quot;</td>
+<td>Пол по паспорту</td>
+</tr>
+<tr>
+<td>issuing_authority</td>
+<td>String</td>
+<td>&quot;ОВД Района Калитники&quot;</td>
+<td>Кем выдан</td>
+</tr>
+<tr>
+<td>authority_code</td>
+<td>String</td>
+<td>&quot;663402&quot;</td>
+<td>Код подразделения</td>
+</tr>
+</tbody></table>
+
+<h3 id='address-entity-v2'> Адрес регистрации </h3>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>city</td>
+<td>String</td>
+<td>&quot;Москва&quot;</td>
+<td>Город</td>
+</tr>
+<tr>
+<td>street</td>
+<td>String</td>
+<td>&quot;ул. Китобойцев&quot;</td>
+<td>Улица</td>
+</tr>
+<tr>
+<td>building</td>
+<td>String</td>
+<td>&quot;3&quot;</td>
+<td>Дом</td>
+</tr>
+<tr>
+<td>housing</td>
+<td>String</td>
+<td>&quot;1&quot;</td>
+<td>Строение</td>
+</tr>
+<tr>
+<td>apartment</td>
+<td>String</td>
+<td>&quot;616&quot;</td>
+<td>Квартира</td>
+</tr>
+<tr>
+<td>postcode</td>
+<td>String</td>
+<td>&quot;111123&quot;</td>
+<td>Почтовый индекс</td>
+</tr>
+</tbody></table>
+
+<h3 id='international-passport-entity-v2'> Заграничный паспорт </h3>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>country_code</td>
+<td>String</td>
+<td>&quot;RU&quot;</td>
+<td>Код страны</td>
+</tr>
+<tr>
+<td>birth_date</td>
+<td>Date</td>
+<td>&quot;1987-07-18&quot;</td>
+<td>Дата рождения</td>
+</tr>
+<tr>
+<td>expiration_date</td>
+<td>Date</td>
+<td>&quot;2020-01-01&quot;</td>
+<td>Срок истечения</td>
+</tr>
+<tr>
+<td>number</td>
+<td>String</td>
+<td>&quot;723902034&quot;</td>
+<td>Номер</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>String</td>
+<td>&quot;Ivanov&quot;</td>
+<td>Имя</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>String</td>
+<td>&quot;Ivan&quot;</td>
+<td>Фамилия</td>
+</tr>
+</tbody></table>
+
+<h3 id='document-photo-entity-v2'> Фотография документа </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID фотографии</td>
+</tr>
+<tr>
+<td>doument_id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID документа</td>
+</tr>
+<tr>
+<td>document_type</td>
+<td>String</td>
+<td>&#39;local_passport&#39;</td>
+<td>Тип документа</td>
+</tr>
+<tr>
+<td>image</td>
+<td>File</td>
+<td>@path/to/file/local_passport.jpg</td>
+<td>Файл фотографии</td>
+</tr>
+</tbody></table>
+
+<h3 id='social-profile-entity-v2'> Профиль социальной сети </h3>
+
+<p>** В разработке **</p>
+
+<h3 id='initial-payment-entity-v2'> Первоначальный платеж </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID платежа</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>Decimal</td>
+<td>1000</td>
+<td>Сумма</td>
+</tr>
+</tbody></table>
+
+<h3 id='credit-card-entity-v2'> Банковская карта </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID карты</td>
+</tr>
+<tr>
+<td>number</td>
+<td>String</td>
+<td>&#39;411111******1112&#39;</td>
+<td>Маскированный номер карты</td>
+</tr>
+<tr>
+<td>expiration_date</td>
+<td>String</td>
+<td>&#39;12/23&#39;</td>
+<td>Срок действия карты</td>
+</tr>
+</tbody></table>
+
+<h3 id='decision-entity-v2'> Решение по заявке </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID решения</td>
+</tr>
+<tr>
+<td>approved</td>
+<td>Boolean</td>
+<td>false</td>
+<td>Решение по заявке</td>
+</tr>
+</tbody></table>
+
+<h3 id='scheduled-payment-entity-v2'> Очередной платеж </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID платежа</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>Decimal</td>
+<td>1000</td>
+<td>Размер платежа</td>
+</tr>
+<tr>
+<td>state</td>
+<td>String</td>
+<td>&#39;awaiting_charge&#39;</td>
+<td>Статус платежа</td>
+</tr>
+<tr>
+<td>payment_date</td>
+<td>Date</td>
+<td>&#39;2019-06-06&#39;</td>
+<td>Запланированная дата платежа</td>
+</tr>
+<tr>
+<td>paid_at</td>
+<td>Datetime</td>
+<td>&#39;2019-06-08 15:00:00 +03:00&#39;</td>
+<td>Фактическая дата оплаты платежа</td>
+</tr>
+<tr>
+<td>penalty</td>
+<td>Boolean</td>
+<td>true</td>
+<td>Флаг выхода платежа на просрочку</td>
+</tr>
+<tr>
+<td>penalty_amount</td>
+<td>Decimal</td>
+<td>50</td>
+<td>Размер штрафа</td>
+</tr>
+</tbody></table>
+
+<h3 id='payment-attempt-entity-v2'> Попытка списания </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>scheduled_payment_id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID платежа подлежащегь списанию</td>
+</tr>
+</tbody></table>
+
+<h3 id='charged-payment-entity-v2'> Состоявшийся платеж </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID платежа</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>Decimal</td>
+<td>1000</td>
+<td>Размер платежа</td>
+</tr>
+<tr>
+<td>paid_at</td>
+<td>Datetime</td>
+<td>&#39;2019-06-08 15:00:00 +03:00&#39;</td>
+<td>Фактическая дата оплаты платежа</td>
+</tr>
+</tbody></table>
+
+<h3 id='refund-entity-v2'> Возврат </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID платежа</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>Decimal</td>
+<td>1000</td>
+<td>Сумма возврата</td>
+</tr>
+</tbody></table>
+
+<h3 id='product-entity-v2'> Товар </h3>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID продукта</td>
+</tr>
+<tr>
+<td>product_type</td>
+<td>String</td>
+<td>&#39;airline_ticket&#39;</td>
+<td></td>
+</tr>
+<tr>
+<td>product_items</td>
+<td>Array</td>
+<td>См раздел &quot;Товар&quot;</td>
+<td>Список товаров</td>
+</tr>
+</tbody></table>
+
+<h3 id='additional-entities-v2'>Дополнительные сущности</h3>
+
+<h4 id='meta-entity-v2'><code>meta</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>client_orders_count</td>
+<td>Integer</td>
+<td>14</td>
+<td>Количество успешных заказов клиента</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>client_login</td>
+<td>Boolean</td>
+<td>true/false</td>
+<td>Статус клиента (залогинен или нет)</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>orders_count</td>
+<td>Integer</td>
+<td>3</td>
+<td>Сумма заказов клиента у партнера</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>book_code</td>
+<td>String</td>
+<td>&quot;Y&quot;</td>
+<td>Код бронирования</td>
+<td>Нет</td>
+</tr>
+</tbody></table>
+
 <p>Базовый URL: <code>https://dev.moneywall.io/api/v2/</code></p>
 
 <h2 id='auth-v2'> Аутентификация </h2>
@@ -1206,13 +1929,197 @@ https://dev.moneywall.io/api/partners/payments/product
 
 <h2 id='credit-application-v2'> Кредитная заявка </h2>
 
-<p><code>POST#credit_applications</code></p>
-
 <p>Создание заявки</p>
 
-<p><code>GET#credit_applications/:id</code></p>
+<p><strong>HTTP Запрос</strong></p>
 
-<p>Получение полной информации по заявке</p>
+<p><code>POST https://dev.moneywall.io/api/v2/credit_applications</code></p>
+
+<p><strong>Схема запроса</strong></p>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>phone</td>
+<td>String</td>
+<td>&quot;79588249424&quot;</td>
+<td>Номер телефона клиента</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>email</td>
+<td>String</td>
+<td>&quot;user@gmail.com&quot;</td>
+<td>Адрес электронной почты клиента</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>Decimal</td>
+<td>10000</td>
+<td>Сумма заказа в рублях</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>success_callback_url</td>
+<td>String</td>
+<td>&quot;http://yoursite.com/callbacks/success&quot;</td>
+<td>Адрес callback-страницы, вызываемой при одобрении заявки</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>failure_callback_url</td>
+<td>String</td>
+<td>&quot;http://yoursite.com/callbacks/failure&quot;</td>
+<td>Адрес callback-страницы, вызываемой при отклонении заявки</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>redirect_url</td>
+<td>String</td>
+<td>&quot;http://yoursite.com/order/AB123-45&quot;</td>
+<td>Адрес страницы заказа в системе партнера</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>order_id</td>
+<td>String</td>
+<td>&quot;vpih-234lgh&quot;</td>
+<td>Идентификатор сессии со стороны партнера (по нему можно будет <a href="#payment-state">получать статус</a>)</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>original_provider_order_id</td>
+<td>String</td>
+<td>&quot;AB123-45&quot;</td>
+<td>Идентификатор заказа в системе партнера</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>expires_at</td>
+<td>DateTime</td>
+<td>&quot;2017-07-01T15:00:00+03:00&quot;</td>
+<td>Таймлимит для заказа</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>product_type</td>
+<td>String</td>
+<td>&quot;airline_tickets&quot;</td>
+<td>Тип товара, под который выдается кредит</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>product</td>
+<td>Object</td>
+<td>См. <a href="#product-schema">схему объекта product</a></td>
+<td>Детали товара, под который выдается кредит</td>
+<td>Да, если передан тип товара</td>
+</tr>
+<tr>
+<td>local_passport</td>
+<td>Object</td>
+<td>См. <a href="#local-passport-schema">схему объекта local_passport</a></td>
+<td>Общегражданский паспорт клиента</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>address</td>
+<td>Object</td>
+<td>См. <a href="#address-schema">схему объекта address</a></td>
+<td>Адрес регистрации клиента</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>international_passport</td>
+<td>Object</td>
+<td>См. <a href="#international-passport-schema">схему объекта international_passport</a></td>
+<td>Загранпаспорт клиента</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>meta</td>
+<td>Object</td>
+<td>См. <a href="#meta-schema">схему объекта meta</a></td>
+<td>Дополнительная информация</td>
+<td>Нет</td>
+</tr>
+</tbody></table>
+
+<p>Получение полной информации по заявке
+<strong>HTTP Запрос</strong>
+<code>GET https://dev.moneywall.io/api/v2/credit_applications/:id</code></p>
+
+<table><thead>
+<tr>
+<th>Поле</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>Integer</td>
+<td>1</td>
+<td>ID заявки</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>Decimal</td>
+<td>10000</td>
+<td>Сумма займа</td>
+</tr>
+<tr>
+<td>remaining_amount</td>
+<td>Decimal</td>
+<td>3000</td>
+<td>Оставшаяся сумма по договору к оплате</td>
+</tr>
+<tr>
+<td>local_passport</td>
+<td>LocalPassport</td>
+<td>Объект сущности LocalPassport</td>
+<td>Объект общегражданского паспорта</td>
+</tr>
+<tr>
+<td>international_passport</td>
+<td>InternationalPassport</td>
+<td>Объект сущности InternationalPassport</td>
+<td>Объект загранпаспорта</td>
+</tr>
+<tr>
+<td>address</td>
+<td>Address</td>
+<td>Объект сущности Address</td>
+<td>Объект адреса</td>
+</tr>
+<tr>
+<td>document_photos</td>
+<td>Array</td>
+<td>Массив сущностей DocumentPhoto</td>
+<td>Массив фотографий документов</td>
+</tr>
+<tr>
+<td>product</td>
+<td>Product</td>
+<td>Объект сущности Product</td>
+<td>Объект товара</td>
+</tr>
+<tr>
+<td>payment_graph</td>
+<td>Array</td>
+<td>Массив объектов Payment</td>
+<td>График платажей</td>
+</tr>
+</tbody></table>
 
 <h3 id='credit-application-v2-signature'> Электронная подпись </h3>
 
