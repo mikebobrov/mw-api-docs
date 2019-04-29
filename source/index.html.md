@@ -319,6 +319,209 @@ amount | Decimal | 100 | Сумма возврата в рублях | Да
 
 Ниже представлен проект документации по новой версии API
 
+<h2 id='entities-v2'>Системные сущности</h2>
+
+* [Кредитная Заявка](#credit-application-entity-v2)
+
+* [Кредитный Договор](#credit-agreement-entity-v2)
+
+* [Электронная подпись](#credit-signature-entity-v2)
+
+* [Фотография Документа](#document-photo-entity-v2)
+
+* [Профиль социальной сети](#social-profile-entity-v2)
+
+* [Первоначальный платеж](#initial-payment-entity-v2)
+
+* [Банковская карта](#credit-card-entity-v2)
+
+* [Решение по заявке](#decision-entity-v2)
+
+* [Текущий статус заявки](#credit-application-state-entity-v2)
+
+* [График платежей](#payment-graph-entity-v2)
+
+* [Очередной платеж](#scheduled-payment-entity-v2)
+
+* [Попытка списания](#payment-attempt-entity-v2)
+
+* [Состоявшийся платеж](#charged-payment-entity-v2)
+
+* [Список возвратов](#refunds-entity-v2)
+
+* [Возврат](#refund-entity-v2)
+
+* [Ввод договора в действие](#activation-entity-v2)
+
+* [Товар](#product-entity-v2)
+
+
+<h3 id='credit-application-entity-v2'> Кредитная заявка </h3>
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+phone | String | "79588249424" | Номер телефона клиента
+email | String | "user@gmail.com" | Адрес электронной почты клиента
+amount | Decimal | 10000 | Сумма заказа клиента на сайте партнера в рублях
+success_callback_url | String | "http://yoursite.com/callbacks/success" | Адрес callback-страницы, вызываемой при одобрении заявки
+failure_callback_url | String | "http://yoursite.com/callbacks/failure" | Адрес callback-страницы, вызываемой при отклонении заявки
+redirect_url | String | "http://yoursite.com/order/AB123-45" | Адрес страницы заказа в системе партнера
+order_id | String | "vpih-234lgh" | Идентификатор заказа со стороны партнера
+original_provider_order_id | String | "AB123-45" | Идентификатор заказа в системе партнера
+expires_at | DateTime | "2017-09-01T15:00:00+03:00" | Таймлимит для заказа
+meta | Object | См. [схему сущности meta](#meta-entity-v2) | Дополнительная информация
+
+> Пожалуйста, обратите внимание, что параметры с типом DateTime следует передавать в формате ISO8601 с часовым поясом. Рекомендуемый формат даты: `"%Y-%m-%dT%H:%M:%S%:z"`
+
+<h3 id='credit-agreement-entity-v2'> Кредитный договор </h3>
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+id | Integer | 1 | ID договора
+body_amount | Decimal | 10000 | Сумма тела займа
+interest_amount | Decimal | 2000 | Сумма процентов займа
+body_remainder_amount | Decimal | 9000 | Текущая задолженность по телу
+interest_remainder_amount | Decimal | 1000 | Текущая задолженность по процентам
+state | String | 'open' | Статус договора
+credit_application_id | Integer | ID кредитной заявки
+
+
+<h3 id='credit-signature-entity-v2'> Электронная подпись </h3>
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+id | Integer | 1 | ID подписи
+code | String | '0312' | Код
+active | Boolean | true | Статус активности
+expires_at | Datetime | "2019-07-01T13:00:00+03:00" | Срок активности
+
+<h3 id='local-passport-entity-v2'> Общегражданский паспорт </h3>
+
+Параметр | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+birth_date | Date | "1987-07-18" | Дата рождения
+issue_date | Date | "2001-01-01" | Дата выдачи паспорта
+number | String | "4444333222" | Серия и номер паспорта
+last_name | String | "Иванов" | Фамилия
+first_name | String | "Иван" | Имя
+middle_name | String | "Александрович" | Отчество
+sex | String: "female", "male" | "female" | Пол по паспорту
+issuing_authority | String | "ОВД Района Калитники" | Кем выдан
+authority_code | String | "663402" | Код подразделения
+
+<h3 id='address-entity-v2'> Адрес регистрации </h3>
+
+Параметр | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+city | String | "Москва" | Город
+street | String | "ул. Китобойцев" | Улица
+building | String | "3" | Дом
+housing | String | "1" | Строение
+apartment | String | "616" | Квартира
+postcode | String | "111123" | Почтовый индекс
+
+
+<h3 id='international-passport-entity-v2'> Заграничный паспорт </h3>
+
+Параметр | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+country_code | String | "RU" | Код страны
+birth_date | Date | "1987-07-18" | Дата рождения
+expiration_date | Date | "2020-01-01" | Срок истечения
+number | String | "723902034" | Номер
+first_name | String | "Ivanov" | Имя
+last_name | String | "Ivan" | Фамилия
+
+<h3 id='document-photo-entity-v2'> Фотография документа </h3>
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+id | Integer | 1 | ID фотографии
+doument_id | Integer | 1 | ID документа
+document_type | String | 'local_passport' | Тип документа
+image | File | @path/to/file/local_passport.jpg | Файл фотографии
+
+
+<h3 id='social-profile-entity-v2'> Профиль социальной сети </h3>
+
+** В разработке **
+
+<h3 id='initial-payment-entity-v2'> Первоначальный платеж </h3>
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+id | Integer | 1 | ID платежа
+amount | Decimal | 1000 | Сумма
+
+<h3 id='credit-card-entity-v2'> Банковская карта </h3>
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+id | Integer | 1 | ID карты
+number | String | '411111******1112' | Маскированный номер карты
+expiration_date | String | '12/23' | Срок действия карты
+
+<h3 id='decision-entity-v2'> Решение по заявке </h3>
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+id | Integer | 1 | ID решения
+approved | Boolean | false | Решение по заявке
+
+<h3 id='scheduled-payment-entity-v2'> Очередной платеж </h3>
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+id | Integer | 1 | ID платежа
+amount | Decimal | 1000 | Размер платежа
+state | String | 'awaiting_charge' | Статус платежа
+payment_date | Date | '2019-06-06' | Запланированная дата платежа
+paid_at | Datetime | '2019-06-08 15:00:00 +03:00' | Фактическая дата оплаты платежа
+penalty | Boolean | true | Флаг выхода платежа на просрочку
+penalty_amount | Decimal | 50 | Размер штрафа
+
+
+<h3 id='payment-attempt-entity-v2'> Попытка списания </h3>
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+scheduled_payment_id | Integer | 1 | ID платежа подлежащегь списанию
+
+<h3 id='charged-payment-entity-v2'> Состоявшийся платеж </h3>
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+id | Integer | 1 | ID платежа
+amount | Decimal | 1000 | Размер платежа
+paid_at | Datetime | '2019-06-08 15:00:00 +03:00' | Фактическая дата оплаты платежа
+
+<h3 id='refund-entity-v2'> Возврат </h3>
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+id | Integer | 1 | ID платежа
+amount | Decimal | 1000 | Сумма возврата
+
+<h3 id='product-entity-v2'> Товар </h3>
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+id | Integer | 1 | ID продукта
+product_type | String | 'airline_ticket'
+product_items | Array | См раздел "Товар" | Список товаров
+
+<h3 id='additional-entities-v2'>Дополнительные сущности</h3>
+
+<h4 id='meta-entity-v2'><code>meta</code></h4>
+
+Параметр | Тип | Пример | Описание | Обязательно
+--------- | --------- | --------- | --------- | ---------
+client_orders_count | Integer | 14 | Количество успешных заказов клиента | Нет
+client_login | Boolean | true/false | Статус клиента (залогинен или нет) | Нет
+orders_count | Integer | 3 | Сумма заказов клиента у партнера | Нет
+book_code     | String | "Y" | Код бронирования | Нет
+
+
+
 Базовый URL: `https://dev.moneywall.io/api/v2/`
 
 <h2 id='auth-v2'> Аутентификация </h2>
@@ -326,13 +529,49 @@ amount | Decimal | 100 | Сумма возврата в рублях | Да
   **TBD**
 
 <h2 id='credit-application-v2'> Кредитная заявка </h2>
-  `POST#credit_applications`
+Создание заявки
 
-  Создание заявки
+**HTTP Запрос**
 
-  `GET#credit_applications/:id`
+`POST https://dev.moneywall.io/api/v2/credit_applications`
 
-  Получение полной информации по заявке
+**Схема запроса**
+
+Параметр | Тип | Пример | Описание | Обязательно
+--------- | --------- | --------- | --------- | ---------
+phone | String | "79588249424" | Номер телефона клиента | Да
+email | String | "user@gmail.com" | Адрес электронной почты клиента | Да
+amount | Decimal | 10000 | Сумма заказа в рублях | Да
+success_callback_url | String | "http://yoursite.com/callbacks/success" | Адрес callback-страницы, вызываемой при одобрении заявки | Да
+failure_callback_url | String | "http://yoursite.com/callbacks/failure" | Адрес callback-страницы, вызываемой при отклонении заявки | Да
+redirect_url | String | "http://yoursite.com/order/AB123-45" | Адрес страницы заказа в системе партнера | Да
+order_id | String | "vpih-234lgh" | Идентификатор сессии со стороны партнера (по нему можно будет [получать статус](#payment-state)) | Да
+original_provider_order_id | String | "AB123-45" | Идентификатор заказа в системе партнера | Нет
+expires_at | DateTime | "2017-07-01T15:00:00+03:00" | Таймлимит для заказа | Нет
+product_type | String | "airline_tickets" | Тип товара, под который выдается кредит| Нет
+product | Object | См. [схему объекта product](#product-schema)| Детали товара, под который выдается кредит | Да, если передан тип товара
+local_passport | Object | См. [схему объекта local_passport](#local-passport-schema) | Общегражданский паспорт клиента | Нет
+address | Object | См. [схему объекта address](#address-schema) | Адрес регистрации клиента | Нет
+international_passport | Object | См. [схему объекта international_passport](#international-passport-schema) | Загранпаспорт клиента | Нет
+meta | Object | См. [схему объекта meta](#meta-schema) | Дополнительная информация | Нет
+
+Получение полной информации по заявке
+**HTTP Запрос**
+`GET https://dev.moneywall.io/api/v2/credit_applications/:id`
+
+Поле | Тип | Пример | Описание
+--------- | --------- | --------- | ---------
+id | Integer | 1 | ID заявки
+amount | Decimal | 10000 | Сумма займа
+remaining_amount | Decimal | 3000 | Оставшаяся сумма по договору к оплате
+local_passport | LocalPassport | Объект сущности LocalPassport | Объект общегражданского паспорта
+international_passport | InternationalPassport | Объект сущности InternationalPassport | Объект загранпаспорта
+address | Address | Объект сущности Address | Объект адреса
+document_photos | Array | Массив сущностей DocumentPhoto | Массив фотографий документов
+product | Product | Объект сущности Product | Объект товара
+payment_graph | Array | Массив объектов Payment | График платажей
+
+
 
 <h3 id='credit-application-v2-signature'> Электронная подпись </h3>
   `POST#credit_applications/:id/verification_code`
