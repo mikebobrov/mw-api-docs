@@ -540,7 +540,7 @@
 <tr>
 <td>product_type</td>
 <td>String</td>
-<td>&quot;airline_tickets&quot;</td>
+<td>&quot;airline_tickets&quot;/&quot;railway_tickets&quot;</td>
 <td>Тип товара, под который выдается кредит</td>
 <td>Нет</td>
 </tr>
@@ -610,6 +610,33 @@
 <td>Валидирующая авиакомпания</td>
 <td>Да</td>
 </tr>
+<tr>
+<td>segments</td>
+<td>Array</td>
+<td>См. <a href="#segment-schema">схему объекта segment</a></td>
+<td>Сегменты</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>passengers</td>
+<td>Array</td>
+<td>См. <a href="#passenger">схему объекта passenger</a></td>
+<td>Пассажиры</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='product-schema'>Схема объекта <code>product</code> при <code>product_type == 'railway_tickets'</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
 <tr>
 <td>segments</td>
 <td>Array</td>
@@ -697,7 +724,14 @@
 <td>Array</td>
 <td>См. <a href="#flight-schema">схему объекта flight</a></td>
 <td>Перелеты</td>
-<td>Да</td>
+<td>Да (для airline_tickets)</td>
+</tr>
+<tr>
+<td>routes</td>
+<td>Array</td>
+<td>См. <a href="#route-schema">схему объекта route</a></td>
+<td>Перелеты</td>
+<td>Да (для railway_tickets)</td>
 </tr>
 </tbody></table>
 
@@ -773,6 +807,61 @@
 <td>String</td>
 <td>&quot;SU&quot;</td>
 <td>Оперирующий перевозчик</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='flight-schema'>Схема объекта <code>route</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>service_class</td>
+<td>String</td>
+<td>&quot;ЗЛ&quot;</td>
+<td>Класс обслуживания</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>departure_dt</td>
+<td>DateTime</td>
+<td>&quot;2016-12-10T08:00:00+03:00&quot;</td>
+<td>Дата и время отправления</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>from_station</td>
+<td>String</td>
+<td>&quot;МОСКВА ОКТЯБРЬСКАЯ&quot;</td>
+<td>Станция отправления</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>to_station</td>
+<td>String</td>
+<td>&quot;САНКТ-ПЕТЕРБУРГ-ГЛАВН.&quot;</td>
+<td>Станция прибытия</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>train_number</td>
+<td>String</td>
+<td>&quot;606&quot;</td>
+<td>Номер поезда</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>car_number</td>
+<td>String</td>
+<td>&quot;6&quot;</td>
+<td>Номер вагона</td>
 <td>Да</td>
 </tr>
 </tbody></table>
@@ -1073,7 +1162,7 @@ https://dev.moneywall.io/api/partners/payments/product
 <tr>
 <td>product_type</td>
 <td>String</td>
-<td>&quot;airline-tickets&quot;</td>
+<td>&quot;airline_tickets&quot;, &quot;railway_tickets&quot;</td>
 <td>Тип билетов</td>
 <td>Да</td>
 </tr>
