@@ -102,30 +102,22 @@ meta | Object | См. [схему объекта meta](#meta-schema) | Допо�
 
 > Пожалуйста, обратите внимание, что параметры с типом DateTime следует передавать в формате ISO8601 с часовым поясом. Рекомендуемый формат даты: `"%Y-%m-%dT%H:%M:%S%:z"`
 
-<h4 id='product-schema'>Схема объекта <code>product</code> при <code>product_type == 'airline_tickets'</code></h4>
+<h4 id='product-schema-airline'>Схема объекта <code>product</code> при <code>product_type == 'airline_tickets'</code></h4>
 
 Параметр | Тип | Пример | Описание | Обязательно
 --------- | --------- | --------- | --------- | ---------
 cabin_type          | String | "economy" ("business", "premium") | Класс обслуживания | Нет
 validating_airline  | String | "SU" | Валидирующая авиакомпания | Да
-segments            | Array | См. [схему объекта segment](#segment-schema) | Сегменты | Да
+segments            | Array | См. [схему объекта segment](#segment-schema-airline) | Сегменты | Да
 passengers          | Array | См. [схему объекта passenger](#passenger) | Пассажиры | Да
 
-<h4 id='product-schema'>Схема объекта <code>product</code> при <code>product_type == 'railway_tickets'</code></h4>
+<h4 id='product-schema-railway'>Схема объекта <code>product</code> при <code>product_type == 'railway_tickets'</code></h4>
 
 Параметр | Тип | Пример | Описание | Обязательно
 --------- | --------- | --------- | --------- | ---------
-segments            | Array | См. [схему объекта segment](#segment-schema) | Сегменты | Да
+segments            | Array | См. [схему объекта segment](#segment-schema-railway) | Сегменты | Да
 passengers          | Array | См. [схему объекта passenger](#passenger) | Пассажиры | Да
 
-<h4 id='product-schema'>Схема объекта <code>product</code> при <code>product_type == 'airline_tickets'</code></h4>
-
-Параметр | Тип | Пример | Описание | Обязательно
---------- | --------- | --------- | --------- | ---------
-cabin_type          | String | "economy" ("business", "premium") | Класс обслуживания | Да
-validating_airline  | String | "SU" | Валидирующая авиакомпания | Да
-segments            | Array | См. [схему объекта segment](#segment-schema) | Сегменты | Да
-passengers          | Array | См. [схему объекта passenger](#passenger) | Пассажиры | Да
 
 <h4 id='passenger-schema'>Схема объекта <code>passenger</code></h4>
 
@@ -138,12 +130,18 @@ document_type   | String | "international_passport" ("local_passport", "birth_ce
 document_number | String | "349287349" | Номер документа | Да
 birth_date      | String | "1987-07-18" | Дата рождения | Да
 
-<h4 id='segment-schema'>Схема объекта <code>segment</code></h4>
+<h4 id='segment-schema-airline'>Схема объекта <code>segment</code> при <code>product_type == 'airline_tickets'</code></h4>
 
 Параметр | Тип | Пример | Описание | Обязательно
 --------- | --------- | --------- | --------- | ---------
-flights   | Array | См. [схему объекта flight](#flight-schema) | Перелеты | Да (для airline_tickets)
-routes   | Array | См. [схему объекта route](#route-schema) | Перелеты | Да (для railway_tickets)
+pnr   | String | 'P52DKC' | PNR сегмента | Да
+flights   | Array | См. [схему объекта flight](#flight-schema) | Перелеты | Да
+
+<h4 id='segment-schema-railway'>Схема объекта <code>segment</code> при <code>product_type == 'railway_tickets'</code></h4>
+
+Параметр | Тип | Пример | Описание | Обязательно
+--------- | --------- | --------- | --------- | ---------
+routes   | Array | См. [схему объекта route](#route-schema) | Сегменты пути | Да
 
 <h4 id='flight-schema'>Схема объекта <code>flight</code></h4>
 
