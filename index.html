@@ -253,6 +253,9 @@
                         </ul>
                   </li>
                   <li>
+                    <a href="#entity-schemes" class="toc-h2 toc-link" data-title="Объекты и сущности">Объекты и сущности</a>
+                  </li>
+                  <li>
                     <a href="#payment-cards" class="toc-h2 toc-link" data-title="Тестовые карты">Тестовые карты</a>
                   </li>
               </ul>
@@ -546,7 +549,7 @@
 <tr>
 <td>product_type</td>
 <td>String</td>
-<td>&quot;airline_tickets&quot;/&quot;railway_tickets&quot;</td>
+<td>&quot;airline_tickets&quot;/&quot;railway_tickets&quot;/&quot;accommodation&quot;</td>
 <td>Тип товара, под который выдается кредит</td>
 <td>Нет</td>
 </tr>
@@ -590,555 +593,6 @@
 <blockquote>
 <p>Пожалуйста, обратите внимание, что параметры с типом DateTime следует передавать в формате ISO8601 с часовым поясом. Рекомендуемый формат даты: <code>&quot;%Y-%m-%dT%H:%M:%S%:z&quot;</code></p>
 </blockquote>
-
-<h4 id='product-schema-airline'>Схема объекта <code>product</code> при <code>product_type == 'airline_tickets'</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>cabin_type</td>
-<td>String</td>
-<td>&quot;economy&quot; (&quot;business&quot;, &quot;premium&quot;)</td>
-<td>Класс обслуживания</td>
-<td>Нет</td>
-</tr>
-<tr>
-<td>validating_airline</td>
-<td>String</td>
-<td>&quot;SU&quot;</td>
-<td>Валидирующая авиакомпания</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>segments</td>
-<td>Array</td>
-<td>См. <a href="#segment-schema-airline">схему объекта segment</a></td>
-<td>Сегменты</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>passengers</td>
-<td>Array</td>
-<td>См. <a href="#passenger">схему объекта passenger</a></td>
-<td>Пассажиры</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='product-schema-railway'>Схема объекта <code>product</code> при <code>product_type == 'railway_tickets'</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>segments</td>
-<td>Array</td>
-<td>См. <a href="#segment-schema-railway">схему объекта segment</a></td>
-<td>Сегменты</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>passengers</td>
-<td>Array</td>
-<td>См. <a href="#passenger">схему объекта passenger</a></td>
-<td>Пассажиры</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='passenger-schema'>Схема объекта <code>passenger</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>first_name</td>
-<td>String</td>
-<td>&quot;Ivan&quot;</td>
-<td>Имя</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>middle_name</td>
-<td>String</td>
-<td>&quot;Aleksandrovich&quot;</td>
-<td>Отчество</td>
-<td>Нет</td>
-</tr>
-<tr>
-<td>last_name</td>
-<td>String</td>
-<td>&quot;Ivanon&quot;</td>
-<td>Фамилия</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>document_type</td>
-<td>String</td>
-<td>&quot;international_passport&quot; (&quot;local_passport&quot;, &quot;birth_certificate&quot;)</td>
-<td>Тип документа</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>document_number</td>
-<td>String</td>
-<td>&quot;349287349&quot;</td>
-<td>Номер документа</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>birth_date</td>
-<td>String</td>
-<td>&quot;1987-07-18&quot;</td>
-<td>Дата рождения</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='segment-schema-airline'>Схема объекта <code>segment</code> при <code>product_type == 'airline_tickets'</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>pnr</td>
-<td>String</td>
-<td>&#39;P52DKC&#39;</td>
-<td>PNR сегмента</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>flights</td>
-<td>Array</td>
-<td>См. <a href="#flight-schema">схему объекта flight</a></td>
-<td>Перелеты</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='segment-schema-railway'>Схема объекта <code>segment</code> при <code>product_type == 'railway_tickets'</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>routes</td>
-<td>Array</td>
-<td>См. <a href="#route-schema">схему объекта route</a></td>
-<td>Сегменты пути</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='flight-schema'>Схема объекта <code>flight</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>cabin_type</td>
-<td>String</td>
-<td>&quot;economy&quot; (&quot;business&quot;, &quot;premium&quot;)</td>
-<td>Класс обслуживания</td>
-<td>Нет</td>
-</tr>
-<tr>
-<td>aircraft</td>
-<td>String</td>
-<td>&quot;737&quot;</td>
-<td>Модель самолета</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>departure_dt</td>
-<td>DateTime</td>
-<td>&quot;2016-12-10T08:00:00+03:00&quot;</td>
-<td>Время вылета</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>arrival_dt</td>
-<td>DateTime</td>
-<td>&quot;2018-12-10T10:00:00+03:00&quot;</td>
-<td>Время прилета</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>book_code</td>
-<td>String</td>
-<td>&quot;Y&quot;</td>
-<td>Код бронирования</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>orig</td>
-<td>String</td>
-<td>&quot;SVO&quot;</td>
-<td>Аэропорт вылета</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>dest</td>
-<td>String</td>
-<td>&quot;VIE&quot;</td>
-<td>Аэропорт прилета</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>flight_number</td>
-<td>String</td>
-<td>&quot;606&quot;</td>
-<td>Номер рейса</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>marketing_ac</td>
-<td>String</td>
-<td>&quot;SU&quot;</td>
-<td>Маркетинговый перевозчик</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>operating_ac</td>
-<td>String</td>
-<td>&quot;SU&quot;</td>
-<td>Оперирующий перевозчик</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='flight-schema'>Схема объекта <code>route</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>service_class</td>
-<td>String</td>
-<td>&quot;ЗЛ&quot;</td>
-<td>Класс обслуживания</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>departure_dt</td>
-<td>DateTime</td>
-<td>&quot;2016-12-10T08:00:00+03:00&quot;</td>
-<td>Дата и время отправления</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>from_station</td>
-<td>String</td>
-<td>&quot;МОСКВА ОКТЯБРЬСКАЯ&quot;</td>
-<td>Станция отправления</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>to_station</td>
-<td>String</td>
-<td>&quot;САНКТ-ПЕТЕРБУРГ-ГЛАВН.&quot;</td>
-<td>Станция прибытия</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>train_number</td>
-<td>String</td>
-<td>&quot;606&quot;</td>
-<td>Номер поезда</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>car_number</td>
-<td>String</td>
-<td>&quot;6&quot;</td>
-<td>Номер вагона</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='local-passport-schema'>Схема объекта общегражданского паспорта <code>local_passport</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>birth_date</td>
-<td>Date</td>
-<td>&quot;1987-07-18&quot;</td>
-<td>Дата рождения</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>birth_place</td>
-<td>String</td>
-<td>&quot;Россия, г. Москва, ул. Ленина, д. 5&quot;</td>
-<td>Место рождения</td>
-<td>Нет</td>
-</tr>
-<tr>
-<td>issue_date</td>
-<td>Date</td>
-<td>&quot;2001-01-01&quot;</td>
-<td>Дата выдачи паспорта</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>number</td>
-<td>String</td>
-<td>&quot;4444333222&quot;</td>
-<td>Серия и номер паспорта</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>last_name</td>
-<td>String</td>
-<td>&quot;Иванов&quot;</td>
-<td>Фамилия</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>first_name</td>
-<td>String</td>
-<td>&quot;Иван&quot;</td>
-<td>Имя</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>middle_name</td>
-<td>String</td>
-<td>&quot;Александрович&quot;</td>
-<td>Отчество</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>sex</td>
-<td>String: &quot;female&quot;, &quot;male&quot;</td>
-<td>&quot;female&quot;</td>
-<td>Пол по паспорту</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>issuing_authority</td>
-<td>String</td>
-<td>&quot;ОВД Района Калитники&quot;</td>
-<td>Кем выдан</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>authority_code</td>
-<td>String</td>
-<td>&quot;663402&quot;</td>
-<td>Код подразделения</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='address-schema'>Схема объекта адреса <code>address</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>city</td>
-<td>String</td>
-<td>&quot;Москва&quot;</td>
-<td>Город</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>street</td>
-<td>String</td>
-<td>&quot;ул. Китобойцев&quot;</td>
-<td>Улица</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>building</td>
-<td>String</td>
-<td>&quot;3&quot;</td>
-<td>Дом</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>housing</td>
-<td>String</td>
-<td>&quot;1&quot;</td>
-<td>Строение</td>
-<td>Нет</td>
-</tr>
-<tr>
-<td>apartment</td>
-<td>String</td>
-<td>&quot;616&quot;</td>
-<td>Квартира</td>
-<td>Нет</td>
-</tr>
-<tr>
-<td>postcode</td>
-<td>String</td>
-<td>&quot;111123&quot;</td>
-<td>Почтовый индекс</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='international-passport-schema'>Схема объекта загранпаспорта <code>international_passport</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>country_code</td>
-<td>String</td>
-<td>&quot;RU&quot;</td>
-<td>Код страны</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>birth_date</td>
-<td>Date</td>
-<td>&quot;1987-07-18&quot;</td>
-<td>Дата рождения</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>expiration_date</td>
-<td>Date</td>
-<td>&quot;2020-01-01&quot;</td>
-<td>Срок истечения</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>number</td>
-<td>String</td>
-<td>&quot;723902034&quot;</td>
-<td>Номер</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>first_name</td>
-<td>String</td>
-<td>&quot;Ivanov&quot;</td>
-<td>Имя</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>last_name</td>
-<td>String</td>
-<td>&quot;Ivan&quot;</td>
-<td>Фамилия</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='meta-schema'>Схема объекта <code>meta</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>client_orders_count</td>
-<td>Integer</td>
-<td>14</td>
-<td>Количество успешных заказов клиента</td>
-<td>Нет</td>
-</tr>
-<tr>
-<td>client_login</td>
-<td>Boolean</td>
-<td>true/false</td>
-<td>Статус клиента (залогинен или нет)</td>
-<td>Нет</td>
-</tr>
-<tr>
-<td>orders_count</td>
-<td>Integer</td>
-<td>3</td>
-<td>Сумма заказов клиента у партнера</td>
-<td>Нет</td>
-</tr>
-<tr>
-<td>book_code</td>
-<td>String</td>
-<td>&quot;Y&quot;</td>
-<td>Код бронирования</td>
-<td>Нет</td>
-</tr>
-<tr>
-<td>original_provider_order_id</td>
-<td>String</td>
-<td>&quot;AB123-45&quot;</td>
-<td>Идентификатор заказа в системе партнера</td>
-<td>Нет</td>
-</tr>
-</tbody></table>
 
 <h3 id='product'>Добавление выписанных билетов к заказу</a></h3>
 <pre class="highlight shell tab-shell"><code>curl -X POST   <span class="se">\</span>
@@ -1184,60 +638,6 @@ https://dev.moneywall.io/api/partners/payments/product
 <td>Object</td>
 <td>См. <a href="#product">схему объекта product</a></td>
 <td>Фактически выписанные билеты</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='product'>Схема объекта <code>product</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>product_type</td>
-<td>String</td>
-<td>&quot;airline_tickets&quot;, &quot;railway_tickets&quot;</td>
-<td>Тип билетов</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>product_items</td>
-<td>Array</td>
-<td>См. <a href="#product-items">схему объекта product_items</a></td>
-<td>Список билетов и маршрутных квитанций</td>
-<td>Да</td>
-</tr>
-</tbody></table>
-
-<h4 id='product-items'>Схема объекта <code>product_items</code></h4>
-
-<table><thead>
-<tr>
-<th>Параметр</th>
-<th>Тип</th>
-<th>Пример</th>
-<th>Описание</th>
-<th>Обязательно</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ticket_number</td>
-<td>String</td>
-<td>&quot;421-288879826&quot;</td>
-<td>Номер билета</td>
-<td>Да</td>
-</tr>
-<tr>
-<td>ticket_receipt</td>
-<td>File</td>
-<td>@path/to/file/test_pdf.pdf</td>
-<td>Файл маршрутной квитанции (pdf, doc, docx). Не больше 8MB</td>
 <td>Да</td>
 </tr>
 </tbody></table>
@@ -1443,6 +843,748 @@ https://dev.moneywall.io/api/partners/payments/product
 <td>&#39;987654321&#39;</td>
 <td>Номер выпущенного документа на билет/услугу, по которой запрашивается возврат в рамках заказа</td>
 <td>Нет</td>
+</tr>
+</tbody></table>
+
+<h2 id='entity-schemes'>Объекты и сущности</h2>
+
+<h4 id='product-schema-airline'>Объект <code>product</code> при <code>product_type == 'airline_tickets'</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>cabin_type</td>
+<td>String</td>
+<td>&quot;economy&quot; (&quot;business&quot;, &quot;premium&quot;)</td>
+<td>Класс обслуживания</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>validating_airline</td>
+<td>String</td>
+<td>&quot;SU&quot;</td>
+<td>Валидирующая авиакомпания</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>segments</td>
+<td>Array</td>
+<td>См. <a href="#segment-schema-airline">схему объекта segment</a></td>
+<td>Сегменты</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>passengers</td>
+<td>Array</td>
+<td>См. <a href="#passenger">схему объекта passenger</a></td>
+<td>Пассажиры</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='product-schema-railway'>Объект <code>product</code> при <code>product_type == 'railway_tickets'</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>segments</td>
+<td>Array</td>
+<td>См. <a href="#segment-schema-railway">схему объекта segment</a></td>
+<td>Сегменты</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>passengers</td>
+<td>Array</td>
+<td>См. <a href="#passenger">схему объекта passenger</a></td>
+<td>Пассажиры</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='product-schema-accommodation'>Объект <code>product</code> при <code>product_type == 'accommodation'</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>accommodations</td>
+<td>Array</td>
+<td>См. <a href="#accommodation-schema">схему объекта accommodation</a></td>
+<td>Варианты размещения</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>guests</td>
+<td>Array</td>
+<td>См. <a href="#guest-schema">схему объекта guest</a></td>
+<td>Гости</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='passenger-schema'>Объект <code>passenger</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first_name</td>
+<td>String</td>
+<td>&quot;Ivan&quot;</td>
+<td>Имя</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>middle_name</td>
+<td>String</td>
+<td>&quot;Aleksandrovich&quot;</td>
+<td>Отчество</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>String</td>
+<td>&quot;Ivanon&quot;</td>
+<td>Фамилия</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>document_type</td>
+<td>String</td>
+<td>&quot;international_passport&quot; (&quot;local_passport&quot;, &quot;birth_certificate&quot;)</td>
+<td>Тип документа</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>document_number</td>
+<td>String</td>
+<td>&quot;349287349&quot;</td>
+<td>Номер документа</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>birth_date</td>
+<td>String</td>
+<td>&quot;1987-07-18&quot;</td>
+<td>Дата рождения</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='guest-schema'>Объект <code>guest</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>first_name</td>
+<td>String</td>
+<td>&quot;Ivan&quot;</td>
+<td>Имя</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>middle_name</td>
+<td>String</td>
+<td>&quot;Aleksandrovich&quot;</td>
+<td>Отчество</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>String</td>
+<td>&quot;Ivanon&quot;</td>
+<td>Фамилия</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>birth_date</td>
+<td>String</td>
+<td>&quot;1987-07-18&quot;</td>
+<td>Дата рождения</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='segment-schema-airline'>Объект <code>segment</code> при <code>product_type == 'airline_tickets'</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pnr</td>
+<td>String</td>
+<td>&#39;P52DKC&#39;</td>
+<td>PNR сегмента</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>flights</td>
+<td>Array</td>
+<td>См. <a href="#flight-schema">схему объекта flight</a></td>
+<td>Перелеты</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='segment-schema-railway'>Объект <code>segment</code> при <code>product_type == 'railway_tickets'</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>routes</td>
+<td>Array</td>
+<td>См. <a href="#route-schema">схему объекта route</a></td>
+<td>Сегменты пути</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='flight-schema'>Объект <code>flight</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>cabin_type</td>
+<td>String</td>
+<td>&quot;economy&quot; (&quot;business&quot;, &quot;premium&quot;)</td>
+<td>Класс обслуживания</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>aircraft</td>
+<td>String</td>
+<td>&quot;737&quot;</td>
+<td>Модель самолета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>departure_dt</td>
+<td>DateTime</td>
+<td>&quot;2016-12-10T08:00:00+03:00&quot;</td>
+<td>Время вылета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>arrival_dt</td>
+<td>DateTime</td>
+<td>&quot;2018-12-10T10:00:00+03:00&quot;</td>
+<td>Время прилета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>book_code</td>
+<td>String</td>
+<td>&quot;Y&quot;</td>
+<td>Код бронирования</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>orig</td>
+<td>String</td>
+<td>&quot;SVO&quot;</td>
+<td>Аэропорт вылета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>dest</td>
+<td>String</td>
+<td>&quot;VIE&quot;</td>
+<td>Аэропорт прилета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>flight_number</td>
+<td>String</td>
+<td>&quot;606&quot;</td>
+<td>Номер рейса</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>marketing_ac</td>
+<td>String</td>
+<td>&quot;SU&quot;</td>
+<td>Маркетинговый перевозчик</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>operating_ac</td>
+<td>String</td>
+<td>&quot;SU&quot;</td>
+<td>Оперирующий перевозчик</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='route-schema'>Объект <code>route</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>service_class</td>
+<td>String</td>
+<td>&quot;ЗЛ&quot;</td>
+<td>Класс обслуживания</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>departure_dt</td>
+<td>DateTime</td>
+<td>&quot;2016-12-10T08:00:00+03:00&quot;</td>
+<td>Дата и время отправления</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>from_station</td>
+<td>String</td>
+<td>&quot;МОСКВА ОКТЯБРЬСКАЯ&quot;</td>
+<td>Станция отправления</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>to_station</td>
+<td>String</td>
+<td>&quot;САНКТ-ПЕТЕРБУРГ-ГЛАВН.&quot;</td>
+<td>Станция прибытия</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>train_number</td>
+<td>String</td>
+<td>&quot;606&quot;</td>
+<td>Номер поезда</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>car_number</td>
+<td>String</td>
+<td>&quot;6&quot;</td>
+<td>Номер вагона</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='accommodation-schema'>Объект <code>accommodation</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>String</td>
+<td>&quot;hotel&quot;</td>
+<td>Тип размещения</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>price</td>
+<td>Decimal</td>
+<td>100</td>
+<td>Полная стоимость размещения</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>&quot;Royal Resort&quot;</td>
+<td>Название места размещения</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>country</td>
+<td>String</td>
+<td>&quot;France&quot;</td>
+<td>Страна размещения</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>city</td>
+<td>String</td>
+<td>&quot;Nice&quot;</td>
+<td>Город размещения</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>room_type</td>
+<td>String</td>
+<td>&quot;Single&quot;</td>
+<td>Категория размещения</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>checkin_date</td>
+<td>Date</td>
+<td>&quot;2020-01-10&quot;</td>
+<td>Дата заезда</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>checkout_date</td>
+<td>Date</td>
+<td>&quot;2020-01-15&quot;</td>
+<td>Дата выезда</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='local-passport-schema'>Объект общегражданского паспорта <code>local_passport</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>birth_date</td>
+<td>Date</td>
+<td>&quot;1987-07-18&quot;</td>
+<td>Дата рождения</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>birth_place</td>
+<td>String</td>
+<td>&quot;Россия, г. Москва, ул. Ленина, д. 5&quot;</td>
+<td>Место рождения</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>issue_date</td>
+<td>Date</td>
+<td>&quot;2001-01-01&quot;</td>
+<td>Дата выдачи паспорта</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>number</td>
+<td>String</td>
+<td>&quot;4444333222&quot;</td>
+<td>Серия и номер паспорта</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>String</td>
+<td>&quot;Иванов&quot;</td>
+<td>Фамилия</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>String</td>
+<td>&quot;Иван&quot;</td>
+<td>Имя</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>middle_name</td>
+<td>String</td>
+<td>&quot;Александрович&quot;</td>
+<td>Отчество</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>sex</td>
+<td>String: &quot;female&quot;, &quot;male&quot;</td>
+<td>&quot;female&quot;</td>
+<td>Пол по паспорту</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>issuing_authority</td>
+<td>String</td>
+<td>&quot;ОВД Района Калитники&quot;</td>
+<td>Кем выдан</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>authority_code</td>
+<td>String</td>
+<td>&quot;663402&quot;</td>
+<td>Код подразделения</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='address-schema'>Объект адреса <code>address</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>city</td>
+<td>String</td>
+<td>&quot;Москва&quot;</td>
+<td>Город</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>street</td>
+<td>String</td>
+<td>&quot;ул. Китобойцев&quot;</td>
+<td>Улица</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>building</td>
+<td>String</td>
+<td>&quot;3&quot;</td>
+<td>Дом</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>housing</td>
+<td>String</td>
+<td>&quot;1&quot;</td>
+<td>Строение</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>apartment</td>
+<td>String</td>
+<td>&quot;616&quot;</td>
+<td>Квартира</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>postcode</td>
+<td>String</td>
+<td>&quot;111123&quot;</td>
+<td>Почтовый индекс</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='international-passport-schema'>Объект загранпаспорта <code>international_passport</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>country_code</td>
+<td>String</td>
+<td>&quot;RU&quot;</td>
+<td>Код страны</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>birth_date</td>
+<td>Date</td>
+<td>&quot;1987-07-18&quot;</td>
+<td>Дата рождения</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>expiration_date</td>
+<td>Date</td>
+<td>&quot;2020-01-01&quot;</td>
+<td>Срок истечения</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>number</td>
+<td>String</td>
+<td>&quot;723902034&quot;</td>
+<td>Номер</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>first_name</td>
+<td>String</td>
+<td>&quot;Ivanov&quot;</td>
+<td>Имя</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>last_name</td>
+<td>String</td>
+<td>&quot;Ivan&quot;</td>
+<td>Фамилия</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='meta-schema'>Объект <code>meta</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>client_orders_count</td>
+<td>Integer</td>
+<td>14</td>
+<td>Количество успешных заказов клиента</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>client_login</td>
+<td>Boolean</td>
+<td>true/false</td>
+<td>Статус клиента (залогинен или нет)</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>orders_count</td>
+<td>Integer</td>
+<td>3</td>
+<td>Сумма заказов клиента у партнера</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>book_code</td>
+<td>String</td>
+<td>&quot;Y&quot;</td>
+<td>Код бронирования</td>
+<td>Нет</td>
+</tr>
+<tr>
+<td>original_provider_order_id</td>
+<td>String</td>
+<td>&quot;AB123-45&quot;</td>
+<td>Идентификатор заказа в системе партнера</td>
+<td>Нет</td>
+</tr>
+</tbody></table>
+
+<h4 id='product'>Объект <code>product</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>product_type</td>
+<td>String</td>
+<td>&quot;airline_tickets&quot;, &quot;railway_tickets&quot;</td>
+<td>Тип билетов</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>product_items</td>
+<td>Array</td>
+<td>См. <a href="#product-items">схему объекта product_items</a></td>
+<td>Список билетов и маршрутных квитанций</td>
+<td>Да</td>
+</tr>
+</tbody></table>
+
+<h4 id='product-items'>Объект <code>product_items</code></h4>
+
+<table><thead>
+<tr>
+<th>Параметр</th>
+<th>Тип</th>
+<th>Пример</th>
+<th>Описание</th>
+<th>Обязательно</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ticket_number</td>
+<td>String</td>
+<td>&quot;421-288879826&quot;</td>
+<td>Номер билета</td>
+<td>Да</td>
+</tr>
+<tr>
+<td>ticket_receipt</td>
+<td>File</td>
+<td>@path/to/file/test_pdf.pdf</td>
+<td>Файл маршрутной квитанции (pdf, doc, docx). Не больше 8MB</td>
+<td>Да</td>
 </tr>
 </tbody></table>
 
