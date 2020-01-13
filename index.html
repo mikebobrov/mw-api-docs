@@ -414,7 +414,7 @@
 <li>Вызов метода <a href="#payment-init">Начала платежной сессии</a></li>
 <li>Вывод фрейма по ссылке, полученной из результата запроса</li>
 <li>Ввод пользователем информации</li>
-<li>Перенаправление пользователя на адресу из <code>redirect_url</code></li>
+<li>Перенаправление пользователя на <code>redirect_url</code> либо из <code>failure_redirect_url</code></li>
 <li>Ожидание решения по заявке</li>
 <li>Вызов <code>success_callback_url</code> или <code>failure_callback_url</code> при одобрении или отклонении заявки соответственно</li>
 </ol>
@@ -447,7 +447,7 @@
   -X POST
   -H <span class="s2">"Content-Type: application/json"</span>
   -H <span class="s2">"Authorization: SuperSecretTokenValue"</span>
-  -d <span class="s1">'{ "phone": "79031232299", "email": "test@test.com", "amount": 10000, "calculated_credit_cost": 12000, "success_callback_url": "http://yoursite.com/callbacks/success", "failure_callback_url": "http://yoursite.com/callbacks/failure", "redirect_url": "http://yoursite.com/order/234", "order_id": "partner_order_id", "web_mode": "standalone", "original_provider_order_id": "original_provider_order_id", "expires_at": "2017-07-01T00:00:00", "product_type": "airline_tickets" }'</span>
+  -d <span class="s1">'{ "phone": "79031232299", "email": "test@test.com", "amount": 10000, "calculated_credit_cost": 12000, "success_callback_url": "http://yoursite.com/callbacks/success", "failure_callback_url": "http://yoursite.com/callbacks/failure", "redirect_url": "http://yoursite.com/order/234", "failure_redirect_url": "http://yoursite.com/order/234/failure", "order_id": "partner_order_id", "web_mode": "standalone", "original_provider_order_id": "original_provider_order_id", "expires_at": "2017-07-01T00:00:00", "product_type": "airline_tickets" }'</span>
 
 </code></pre>
 <blockquote>
@@ -517,6 +517,13 @@
 <td>&quot;http://yoursite.com/order/AB123-45&quot;</td>
 <td>Адрес страницы заказа в системе партнера</td>
 <td>Да</td>
+</tr>
+<tr>
+<td>failure_redirect_url</td>
+<td>String</td>
+<td>&quot;http://yoursite.com/order/AB123-45/failed&quot;</td>
+<td>Страница для перенаправления в случае неуспеха</td>
+<td>Нет</td>
 </tr>
 <tr>
 <td>order_id</td>
