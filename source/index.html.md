@@ -23,7 +23,7 @@ API работает по протоколу HTTPS, все данные пред
   1. Вызов метода [Начала платежной сессии](#payment-init)
   2. Вывод фрейма по ссылке, полученной из результата запроса
   3. Ввод пользователем информации
-  4. Перенаправление пользователя на адресу из `redirect_url`
+  4. Перенаправление пользователя на `redirect_url` либо из `failure_redirect_url`
   5. Ожидание решения по заявке
   6. Вызов `success_callback_url` или `failure_callback_url` при одобрении или отклонении заявки соответственно
 
@@ -59,7 +59,7 @@ curl "https://dev.moneywall.io/api/partners/payments/init"
   -X POST
   -H "Content-Type: application/json"
   -H "Authorization: SuperSecretTokenValue"
-  -d '{ "phone": "79031232299", "email": "test@test.com", "amount": 10000, "calculated_credit_cost": 12000, "success_callback_url": "http://yoursite.com/callbacks/success", "failure_callback_url": "http://yoursite.com/callbacks/failure", "redirect_url": "http://yoursite.com/order/234", "order_id": "partner_order_id", "web_mode": "standalone", "original_provider_order_id": "original_provider_order_id", "expires_at": "2017-07-01T00:00:00", "product_type": "airline_tickets" }'
+  -d '{ "phone": "79031232299", "email": "test@test.com", "amount": 10000, "calculated_credit_cost": 12000, "success_callback_url": "http://yoursite.com/callbacks/success", "failure_callback_url": "http://yoursite.com/callbacks/failure", "redirect_url": "http://yoursite.com/order/234", "failure_redirect_url": "http://yoursite.com/order/234/failure", "order_id": "partner_order_id", "web_mode": "standalone", "original_provider_order_id": "original_provider_order_id", "expires_at": "2017-07-01T00:00:00", "product_type": "airline_tickets" }'
 
 ```
 
@@ -89,6 +89,7 @@ amount | Decimal | 10000 | Сумма заказа клиента на сайт�
 success_callback_url | String | "http://yoursite.com/callbacks/success" | Адрес callback-страницы, вызываемой при одобрении заявки | Да
 failure_callback_url | String | "http://yoursite.com/callbacks/failure" | Адрес callback-страницы, вызываемой при отклонении заявки | Да
 redirect_url | String | "http://yoursite.com/order/AB123-45" | Адрес страницы заказа в системе партнера | Да
+failure_redirect_url | String | "http://yoursite.com/order/AB123-45/failed" | Страница для перенаправления в случае неуспеха | Нет
 order_id | String | "vpih-234lgh" | Идентификатор сессии со стороны партнера (по нему можно будет [получать статус](#payment-state)) | Да
 web_mode | String: "standalone", "iframe" | "standalone" | Режим, в котором будет открыт диалог заполнения кредитной заявки (по умолчанию: standalone)| Нет
 original_provider_order_id | String | "AB123-45" | Идентификатор заказа в системе партнера | Нет
