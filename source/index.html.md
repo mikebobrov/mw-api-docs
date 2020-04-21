@@ -94,8 +94,8 @@ order_id | String | "vpih-234lgh" | Идентификатор сессии со
 web_mode | String: "standalone", "iframe" | "standalone" | Режим, в котором будет открыт диалог заполнения кредитной заявки (по умолчанию: standalone)| Нет
 original_provider_order_id | String | "AB123-45" | Идентификатор заказа в системе партнера | Нет
 expires_at | DateTime | "2017-07-01T15:00:00+03:00" | Таймлимит для заказа | Нет
-product_type | String | "airline_tickets"/"railway_tickets"/"accommodation" | Тип товара, под который выдается кредит| Нет
-product | Object | См. [схему объекта product](#product-schema)| Детали товара, под который выдается кредит | Да, если передан тип товара
+product_type | String | "airline_tickets"/"railway_tickets"/"accommodation" | Тип товара из заказа | Да
+product | Object | См. [схему объекта product](#product-schema)| Детали товара из заказа | Да
 local_passport | Object | См. [схему объекта local_passport](#local-passport-schema) | Общегражданский паспорт клиента | Нет
 address | Object | См. [схему объекта address](#address-schema) | Адрес регистрации клиента | Нет
 international_passport | Object | См. [схему объекта international_passport](#international-passport-schema) | Загранпаспорт клиента | Нет
