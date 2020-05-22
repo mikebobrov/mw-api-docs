@@ -103,7 +103,7 @@ meta | Object | См. [схему объекта meta](#meta-schema) | Допо�
 
 > Пожалуйста, обратите внимание, что параметры с типом DateTime следует передавать в формате ISO8601 с часовым поясом. Рекомендуемый формат даты: `"%Y-%m-%dT%H:%M:%S%:z"`
 
-<h3 id='product'>Добавление выписанных билетов к заказу</a></h3>
+<h3 id='product-add'>Добавление выписанных билетов к заказу</a></h3>
 
 ```shell
 curl -X POST   \
@@ -400,14 +400,14 @@ orders_count | Integer | 3 | Сумма заказов клиента у пар�
 book_code     | String | "Y" | Код бронирования | Нет
 original_provider_order_id | String | "AB123-45" | Идентификатор заказа в системе партнера | Нет
 
-<h4 id='product'>Объект <code>product</code></h4>
+<h4 id='product-schema'>Объект <code>product</code></h4>
 
 Параметр | Тип | Пример | Описание | Обязательно
 --------- | --------- | --------- | --------- | ---------
 product_type | String | "airline_tickets", "railway_tickets" | Тип билетов | Да
 product_items | Array | См. [схему объекта product_items](#product-items) | Список билетов и маршрутных квитанций | Да
 
-<h4 id='product-items'>Объект <code>product_items</code></h4>
+<h4 id='product-item-schema'>Объект <code>product_items</code></h4>
 
 Параметр | Тип | Пример | Описание | Обязательно
 --------- | --------- | --------- | --------- | ---------
@@ -435,6 +435,426 @@ ticket_receipt | File | @path/to/file/test_pdf.pdf | Файл маршрутно
 4100401111100724 | 123 | 2021/12 | Таймаут 40 секунд во время разблокировки
 4100401111100328 | 123 | 2021/12 | Таймаут 40 секунд во время списания
 4100401111103025 | 123 | 2021/12 | Таймаут 40 секунд во время возврата
+
+<h1 id='v1-eng'> [ENG] API v1 </h1>
+
+<h2 id='introduction-eng'>General Information</h2>
+
+Moneywall is an online credit service, which can be built into partner checkout pages and allow customers to buy a product on credit.
+
+An API works on HTTPS protocol, all data is presented in JSON format.
+
+Base URL –  `https://dev.moneywall.io/api/partners`
+
+A simple scenario of application submitting and processing:
+
+1.  Method invocation [Start of a payment session](#payment-init-eng)
+2.  Output of a frame window on the link from search results
+3.  User input
+4.  Redirecting user to URL from `redirect_url`
+5.  Waiting for a decision on the application
+6.  Invocation of `success_callback_url`  or  `failure_callback_url`  when the application is approved or rejected, respectively
+
+<h3 id='calc-eng'>Price Calculation Formula</h3>
+
+To calculate and display payments and the total cost of the order on partner side, a simplified formula is used
+`payment = (order sum * K) / 3,`
+
+where  `K = 1.10`  if the flight is scheduled after the credit agreement expires (later than 60 days from the date of application),
+and  `K = 1.21` if the flight is scheduled before the credit agreement expires
+
+<h2 id='auth-eng'>Authentification</h2>
+
+Authentification occurs through partner token, passed in Authorization on each request:
+
+`Authorization: SuperSecretTokenValue`
+
+```shell
+curl "https://dev.moneywall.io/api/partners/payments/init"
+ -H "Authorization: SuperSecretTokenValue"
+```
+
+<aside class="notice">
+Please replace `SuperSecretTokenValue` with the token given to you
+</aside>
+
+<h2 id='payments-eng'>Payment Sessions</h2>
+
+<h3 id='payments-init-eng'>Start of a Payment Session</h3>
+
+```shell
+curl "https://dev.moneywall.io/api/partners/payments/init"
+ -X POST
+ -H "Content-Type: application/json"
+ -H "Authorization: SuperSecretTokenValue"
+ -d '{ "phone": "79031232299", "email": "test@test.com", "amount": 10000, "calculated_credit_cost": 12000, "success_callback_url": "http://yoursite.com/callbacks/success", "failure_callback_url": "http://yoursite.com/callbacks/failure", "redirect_url": "http://yoursite.com/order/234", "order_id": "partner_order_id", "web_mode": "standalone", "original_provider_order_id": "original_provider_order_id", "expires_at": "2017-07-01T00:00:00", "product_type": "airline_tickets" }'
+```
+
+> The above call returns a response in JSON of the following type
+
+```json
+{
+ "id": 10,
+ "amount": 10000,
+ "frame_url": "https://dev.moneywall.io/frame/credit_applications/10/payment_graph"
+}
+```
+
+The method is used to start start a credit application procedure
+
+**HTTP Request**
+
+`POST https://dev.moneywall.io/api/partners/payments/init`
+
+**Query schema**
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+phone | String | "79588249424" | Customer's telephone number | Yes
+email | String | "user@gmail.com" | Customer's e-mail address | Yes
+amount | Decimal | 10000 | The sum of the customer's order on partner website in rubles | Yes
+success_callback_url | String | "http://yoursite.com/callbacks/success" | URL of callback-page, called when the application is approved | Yes
+failure_callback_url | String | "http://yoursite.com/callbacks/failure" | URL of callback-page, called when the application is rejected | Yes | redirect_url | String | "http://yoursite.com/order/AB123-45" | URL of order page in partner system | Yes
+order_id | String | "vpih-234lgh" | Session ID on partner side (which will allow to [receive status](#payment-state-eng)) | Yes
+web_mode | String: "standalone", "iframe" | "standalone" | The mode in which the application form will be opened (default: standalone) | No | original_provider_order_id | String
+"AB123-45" | Order ID in partner system | No | expires_at | DateTime | "2017-07-01T15:00:00+03:00" | Timelimit for an order | No
+product_type | String | "airline_tickets"/"railway_tickets" | The type of product, to buy which a credit is granted | product | Object | See  [product schema](#product-schema-eng) | The details of product, to buy which a credit is granted | Yes, if the type of product is passed
+local_passport | Object | See  [local_passport schema](#local-passport-schema-eng) | Customer's state ID card | No | address | Object | See  [address schema](#address-schema-eng) | Customer's address | No
+international_passport | Object | See  [international_passport schema](#international-passport-schema-eng) | Customer's international passport | No | meta | Object | See  [meta schema](#meta-schema-eng) | Additional information | No
+
+> Please, note that parameters of DateTime type should be passed in ISO8601 format with the time zone. The recommended date format:  `"%Y-%m-%dT%H:%M:%S%:z"`
+
+<h3 id='product-add-eng'>Adding issued tickets to the order</h3>
+
+```shell
+curl -X POST   \
+-H 'Authorization: SuperSecretTokenValue' \
+-F 'order_id=partner_order_id' \
+-F 'product[product_type]=airline_tickets' \
+-F 'product[product_items][][ticket_number]=123' \
+-F 'product[product_items][][ticket_receipt]=@path/to/file/test_pdf.pdf' \
+https://dev.moneywall.io/api/partners/payments/product
+```
+
+This action adds ticket numbers and ticket receipts into credit application
+
+**HTTP Request**
+
+`POST https://dev.moneywall.io/api/partners/payments/product`
+
+**URL parameters**
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+order_id | String | "vpih-234lgh" | Payment session ID, passed to the method of starting a payment session | Yes
+transaction_letter | File | @path/to/file/test_pdf.pdf | Transaction letter | No
+product | Object | See [product schema](#product-eng) | Issued tickets | Yes
+
+
+<h3 id='payments-state-eng'>Payment Session Status</h3>
+
+```shell
+curl "https://dev.moneywall.io/api/partners/payments/state?order_id=partner_order_id"
+ -H "Authorization: SuperSecretTokenValue"
+```
+
+> The action above returns a response in JSON of the following type
+
+```json
+{
+ "order_id": "partner_order_id",
+ "state": "processing"
+}
+```
+
+<aside class="notice">The method returns a credit application status in Moneywall system</aside>
+
+**HTTP Request**
+
+`GET https://dev.moneywall.io/api/partners/payments/state`
+
+**URL parameters**
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+order_id | String | "vpih-234lgh" | Payment session id, passed to the method of starting a payment session | Yes
+
+**Statuses list**
+
+For a description of the cancellation and closing flow for returns, see [refunds](#payment-refund-eng).
+
+Status&nbsp;code | Description
+------------|----------
+processing | Payment processing
+cancelled | Payment session cancelled
+authorized | The first payment is made, the credit agreement is concluded
+voided | The first payment is refunded to the customer, the credit agreement is cancelled
+refunded | The full refund under the agreement is made
+charged | The first payment is charged, refund is possible only by early refund and agreement closing
+
+<h3 id='payments-states-array-eng'>List of payment sessions statuses for a period</h3>
+
+```shell
+curl "https://dev.moneywall.io/api/partners/payments/states?from=2019-01-01T23:35:14+0300&till=2019-01-13T00:02:13+0300"
+ -H "Authorization: token"
+
+```
+
+> The action returns a response in JSON of the following type:
+
+```json
+[
+ {
+   "order_id":"partner_order_id_1",
+   "state":"processing"
+ },
+ {
+   "order_id":"partner_order_id_2",
+   "state":"cancelled"
+ }
+]
+
+```
+
+The method returns credit application statuses in Moneywall system for a period
+
+**HTTP Request**
+
+`GET https://dev.moneywall.io/api/partners/payments/states`
+
+**URL parameters**
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+from | DateTime | "2019-01-01T23:35:14+0300" | Time of period start | Yes
+till | DateTime | "2019-01-13T00:02:13+0300" | Time of period end | Yes
+
+<h3 id='payment-refund-eng'>Refund</h3>
+
+```
+curl "https://dev.moneywall.io/api/partners/payments/refund"
+ -X POST
+ -H "Content-Type: application/json"
+ -H "Authorization: SuperSecretTokenValue"
+ -d '{ "amount": 100, "order_id": "partner_order_id" }'
+
+
+```
+
+> The action above returns the following response:
+
+```
+HTTP status `200`, if the request was processed. Any other status means that the request was not processed.
+
+```
+
+The is used for making a partial or full refund for order
+
+A partial refund causes the accounting of funds in favour of the debt for a loan.
+A full refund causes closing of a loan.
+
+**Transitions between agreement statuses**
+
+An agreement is considered to be finally opened and confirmed 24 hours after its initial opening.<br/>
+An agreement can be canceled within 24 hours after its initial opening.
+
+Consequently:
+
+-   In case of a full refund within 24 hours after the agreement opening, the agreement is canceled and the money is returned to the client's card by voiding of the payment session;
+-   In case of a full refund later than 24 hours after the agreement opening, the payment is considered as a refund.
+
+**HTTP Request**
+
+`POST https://dev.moneywall.io/api/partners/payments/refund`
+
+**URL parameters**
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+order_id | String | "vpih-234lgh" | Payments session ID, passed to the method [start of a payment session](#payment-init-eng) | Yes
+amount | Decimal | 100 | Repayment in rubles | Yes
+currency | String | 'RUB' | Currency code in ISO-4217 format | No
+document_number | String | '987654321' | The number of the document issued for the ticket / service for which the refund is requested within the order | No
+
+<h2 id='entity-schemas-eng'>Objects and Entities</h2>
+
+<h4 id='product-schema-airline-eng'>Schema of <code>product</code> when <code>product_type == 'airline_tickets'</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+cabin_type | String | "economy" ("business", "premium") | Class | Yes
+validating_airline | String | "SU" | Validating carrier | Yes
+segments | Array | See  [segment schema](#segment-schema-eng) | Segments | Yes
+passengers | Array | See  [passenger schema](#passenger-eng) | Passengers | Yes
+
+<h4 id='product-schema-railway-eng'>Schema of <code>product</code> when <code>product_type == 'railway_tickets'</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+segments | Array | See  [segment schema](#segment-schema-eng) | Segments | Yes
+passengers | Array | See  [passenger schema](#passenger-eng) | Passengers | Yes
+
+<h4 id='product-schema-accommodation-eng'>Schema of <code>product</code> when <code>product_type == 'accomodation'</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+accommodations  | Array | См. [accommodation schema](#accommodation-schema) | Accomodation options | Yes
+guests          | Array | См. [guest schema](#guest-schema) | Guests | Yes
+
+<h4 id='passenger-schema-eng'>Schema of <code>passenger</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+first_name | String | "Ivan" | Name | Yes
+middle_name | String | "Aleksandrovich" | Patronymic | No
+last_name | String | "Ivanov" | Surname | Yes
+document_type | String | "international_passport" ("local_passport", "birth_certificate") | Document type | Yes
+document_number | String | "349287349" | Document number | Yes
+birth_date | String | "1987-07-18" | Date of birth | Yes
+
+<h4 id='guest-schema-eng'>Schema of <code>guest</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+first_name      | String | "Ivan" | First name | Yes
+middle_name     | String | "Aleksandrovich" | Patronymic | No
+last_name       | String | "Ivanon" | Last name | Yes
+birth_date      | String | "1987-07-18" | Date of birth | Yes
+
+<h4 id='segment-schema-airline-eng'>Schema of <code>segment</code> when <code>product_type == 'airline_tickets'</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+pnr   | String | 'P52DKC' | PNR of segment | Yes
+flights | Array | See [flight schema](#flight-schema-eng) | Routes | Yes
+routes | Array | See  [route schema](#route-schema-eng) | Routes | Yes
+
+<h4 id='segment-schema-railway-eng'>Schema of <code>segment</code> when <code>product_type == 'railway_tickets'</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+routes | Array | See  [route schema](#route-schema-eng) | Routes | Yes
+
+<h4 id='flight-schema-eng'>Schema of <code>flight</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+cabin_type | String | "economy" ("business", "premium") | Class | No
+aircraft | String | "737" | Aircraft | Yes
+departure_dt | DateTime | "2016-12-10T08:00:00+03:00" | Departure date and time | Yes
+arrival_dt | DateTime | "2018-12-10T10:00:00+03:00" | Arrival date and time | Yes
+book_code | String | "Y" | Booking code | Yes
+orig | String | "SVO" | Departure airport | Yes
+dest | String | "VIE" | Arrival airport | Yes
+flight_number | String | "606" | Flight | Yes
+marketing_ac | String | "SU" | Marketing carrier | Yes
+operating_ac | String | "SU" | Operating carrier | Yes
+
+<h4 id='route-schema-eng'>Schema of <code>route</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+service_class | String | "ЗЛ" | Class | Yes
+departure_dt | DateTime | "2016-12-10T08:00:00+03:00" | Departure date and time | Yes
+from_station | String | "MOSKVA OKTYABRSKAYA" | From | Yes
+to_station | String | "SANKT-PETERBURG-GLAVNII" | To | Yes
+train_number | String | "606" | Train | Yes
+car_number | String | "6" | Coach | Yes
+
+<h4 id='accommodation-schema-eng'>Schema of <code>accommodation</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+type | String | "hotel" | Accomodation type | Yes
+price  | Decimal | 100 | Total cost | Yes
+name  | String | "Royal Resort" | Accomodation name | Yes
+country  | String | "France" | Country | Yes
+city  | String | "Nice" | City | Yes
+room_type  | String | "Single" | Room type | Yes
+checkin_date  | Date | "2020-01-10" | Date of checkin | Yes
+checkout_date | Date | "2020-01-15" | Date of checkout | Yes
+
+<h4 id='local-passport-schema-eng'>Schema of state ID card <code>local_passport</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+birth_date | Date | "1987-07-18" | Date of birth | Yes
+birth_place | String | "Lenin St. 5, Moscow, Russia" | Place of birth | No
+issue_date | Date | "2001-01-01" | Date of issue | Yes
+number | String | "4444333222" | Series and number of ID card | Yes
+last_name | String | "Ivanov" | Surname | Yes
+first_name | String | "Ivan" | Name | Yes
+middle_name | String | "Aleksandrovich" | Patronymic | Yes
+sex | String: "female", "male" | "female" | Sex in ID card | Yes
+issuing_authority | String | "OVD Rayona Kalitniki" | Issuing authority | Yes
+authority_code | String | "663402" | Authority code | Yes
+
+<h4 id='address-schema-eng'>Schema of <code>address</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+city | String | "Moscow" | City | Yes
+street | String | "Kitoboytsev St." | Street | Yes
+building | String | "3" | Number | Yes
+housing | String | "1" | Building | No
+apartment | String | "616" | Flat | No
+postcode | String | "111123" | Postcode | Yes
+
+<h4 id='international-passport-schema-eng'>Schema of <code>international_passport</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+country_code | String | "RU" | Country code | Yes
+birth_date | Date | "1987-07-18" | Date of birth | Yes
+expiration_date | Date | "2020-01-01" | Expiration date | Yes
+number | String | "723902034" | Number | Yes
+first_name | String | "Ivanov" | Name | Yes
+last_name | String | "Ivan" | Surname | Yes
+
+<h4 id='meta-schema-eng'>Schema <code>meta</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+client_orders_count | Integer | 14 | The number of customer's successful orders | No
+client_login | Boolean | true/false | Customer's status (signed in or not) | No
+orders_count | Integer | 3 | The sum of customer's orders at partner | No
+book_code | String | "Y" | Booking code | No
+original_provider_order_id | String | "AB123-45" | Order ID in partner system | No
+
+<h4 id='product-schema-eng'>Schema of <code>product</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+product_type | String | "airline_tickets", "railway_tickets" | Type of ticket | Yes
+product_items | Array | See [schema of product_items](#product-items-eng) | A list of tickets and ticket receipts | Yes
+
+<h4 id='product-item-schema-eng'>Schema of <code>product_items</code></h4>
+
+Parameter | Type | Example | Description | Mandatory
+--------- | --------- | --------- | --------- | ---------
+ticket_number | String | "421-288879826" | Number of ticket | Yes
+ticket_receipt | File | @path/to/file/test_pdf.pdf | Ticket receipt file (pdf, doc, docx). Not exceeding 8MB | Yes
+
+
+<h2 id='payment-cards-eng'>Test cards</h2>
+
+Card number | CVV | Valid through | Result
+--------- | --------- | --------- | ---------
+4111111111111112 | 123 | 2021/12 | Successful payment without 3DS with optional CVV
+4111111111100031 | 123 | 2021/12 | Successful payment without 3DS with optional CVV
+4111111111100023 | 123 | 2021/12 | Successful payment without 3DS with optional CVV
+5486732058864471 | 123 | 2021/12 | Successful payment with 3DS
+4111111111111111 | 123 | 2021/12 | Successful payment with 3DS
+4111111111111114 | 123 | 2021/12 | Unsuccessful payment with 3DS
+4111111111111115 | 123 | 2021/12 | Unsuccessful payment with 3DS
+7000000000000007 | 521 | 2021/08 | Unsuccessful payment («not sufficient funds»)
+8000000000000008 | 521 | 2021/09 | Unsuccessful payment («invalid expiration date»)
+7600000000000006 | 521 | 2021/08 | Unsuccessful payment («card number on blacklist»)
+1234561999999999 | 374 | 2021/12 | Unsuccessful payment («invalid card number»)
+4111101000000046 | 123 | 2021/12 | Unsuccessful payment («not sufficient funds») during authorization (upon exceeding the amount of 100 rubles (Amount=10001))
+4100401111100062 | 123 | 2021/12 | Timeout 40 seconds during authorization
+4100401111100724 | 123 | 2021/12 | Timeout 40 seconds during void
+4100401111100328 | 123 | 2021/12 | Timeout 40 seconds during charge
+4100401111103025 | 123 | 2021/12 | Timeout 40 seconds during refund
 
 <h1 id='v2'> API v2 </h1>
 
